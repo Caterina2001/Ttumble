@@ -1,14 +1,18 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ttumble/views/prueba.dart';
 
+import '../../blocs/covid_bloc/services_bloc.dart';
 import '../../models/Services.dart';
 import '../../models/SpecialServices.dart';
 import '../../models/core/ttumble.dart';
 import '../../models/helper/recipe_helper.dart';
+import '../../models/service_model.dart';
+import '../../models/special_model.dart';
 import '../../services/remote_service.dart';
 import '../utils/AppColor.dart';
 import '../widgets/modals/search_filter_modal.dart';
@@ -22,20 +26,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Services>? services;
+  //List<Services>? services;
 
-  List<SpecialServices>? specialservices;
+  //List<SpecialServices>? specialservices;
 
-  var isLoaded = false;
+  //var isLoaded = false;
+
+  final ServiceBloc servBloc = ServiceBloc();
+  final SpecialBloc speBloc = SpecialBloc();
   @override
   void initState() {
     // TODO: implement initState
+    servBloc.add(GetServiceList());
+    speBloc.add(GetSpecialList());
     super.initState();
-    getData();
-    getData2();
+    /* getData();
+    getData2(); */
   }
 
-  getData() async {
+  /*  getData() async {
     services = await RemoteService().getServices();
     if (services != null) {
       setState(() {
@@ -51,7 +60,7 @@ class _HomePageState extends State<HomePage> {
         isLoaded = true;
       });
     }
-  }
+  } */
 
   TextEditingController searchInputController = TextEditingController();
 
@@ -96,7 +105,6 @@ class _HomePageState extends State<HomePage> {
         ), */
       ),
       body: ListView(
-        shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         children: [
           Container(
@@ -232,84 +240,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Column(
-            children: [
-              GridView.builder(
-                padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                shrinkWrap: true,
-
-                itemCount: services?.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 0,
-                  crossAxisSpacing: 10,
-                ),
-                //itemCount: services?.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                      child: Column(
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ));
-                          },
-                          child: Column(
-                            children: [
-                              Image.network(services![index].seImagen),
-                              Text(
-                                services![index].seNombre,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          )),
-                    ],
-                  ));
-                  // ignore: dead_code
-                },
-
-                ////////////
-              ),
-              GridView.builder(
-                padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                shrinkWrap: true,
-                itemCount: specialservices?.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: (4 / 2.5)),
-                //itemCount: services?.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    child: Column(
-                      children: [
-                        InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => LoginPage(),
-                              ));
-                            },
-                            child: Column(
-                              children: [
-                                Image.network(specialservices![index].seImagen),
-                                Text(
-                                  specialservices![index].seNombre,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            )),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ],
+            children: [ListService(), ListSpecial()],
           ),
 
           ///its ok heree
@@ -402,23 +333,207 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      /* bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
-        child: CurvedNavigationBar(
-          key: navigationKey,
-          color: Colors.blue,
-          buttonBackgroundColor: Colors.red,
-          backgroundColor: Colors.transparent,
-          height: 60,
-          animationCurve: Curves.easeInOut,
-          animationDuration: Duration(milliseconds: 1000),
-          index: index,
-          items: items,
-          //onTap: (index) => setState(() => this.index = index),
-        ),
-      ), */
     );
   }
+
+  ////
+  ///
+  ///
+  ///
+  Widget ListService() {
+    return Container(
+      margin: EdgeInsets.all(8.0),
+      child: BlocProvider(
+        create: (_) => servBloc,
+        child: BlocListener<ServiceBloc, ServiceState>(
+          listener: (context, state) {
+            if (state is ServiceError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message!),
+                ),
+              );
+            }
+          },
+          child: BlocBuilder<ServiceBloc, ServiceState>(
+            builder: (context, state) {
+              if (state is ServiceInitial) {
+                return _buildLoading();
+              } else if (state is ServiceLoading) {
+                return _buildLoading();
+              } else if (state is ServiceLoaded) {
+                return ServiceCard(context, state.serviceModel);
+              } else if (state is ServiceError) {
+                return Container();
+              } else {
+                return Container();
+              }
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget ServiceCard(BuildContext context, ServiceModel model) {
+    return Theme(
+        data: ThemeData.from(
+            colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange)),
+        child: GridView.builder(
+          padding: EdgeInsets.only(left: 8, right: 8, bottom: 0),
+          shrinkWrap: true,
+          itemCount: model.service!.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            mainAxisSpacing: 5,
+            crossAxisSpacing: 10,
+          ),
+          //itemCount: services?.length,
+          itemBuilder: (context, index) {
+            return Container(
+              child: Column(
+                children: [
+                  InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                        ));
+                      },
+                      child: Column(
+                        children: [
+                          Image.network("${model.service![index].seImagen}"),
+                          Text(
+                            " ${model.service![index].seNombre}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 11.5, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )),
+                ],
+              ),
+            );
+          },
+        ));
+  }
+
+  Widget ListSpecial() {
+    return Container(
+      margin: EdgeInsets.only(
+        left: 8,
+        right: 8,
+      ),
+      child: BlocProvider(
+        create: (_) => speBloc,
+        child: BlocListener<SpecialBloc, SpecialState>(
+          listener: (context1, state) {
+            if (state is SpecialError) {
+              ScaffoldMessenger.of(context1).showSnackBar(
+                SnackBar(
+                  content: Text(state.messagee!),
+                ),
+              );
+            }
+          },
+          child: BlocBuilder<SpecialBloc, SpecialState>(
+            builder: (context1, state) {
+              if (state is SpecialInitial) {
+                return _buildLoading1();
+              } else if (state is SpecialLoading) {
+                return _buildLoading1();
+              } else if (state is SpecialLoaded) {
+                return SpecialCard(context1, state.specialModel);
+              } else if (state is SpecialError) {
+                return Container();
+              } else {
+                return Container();
+              }
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget SpecialCard(BuildContext context1, SpecialServiceModel modell) {
+    return Theme(
+        data: ThemeData.from(
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange),
+        ),
+        child: GridView.builder(
+          padding: EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
+          shrinkWrap: true,
+          itemCount: modell.servicee!.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 5,
+              crossAxisSpacing: 10,
+              childAspectRatio: (4 / 2.5)),
+          //itemCount: services?.length,
+          itemBuilder: (context, index) {
+            return Container(
+              child: Column(
+                children: [
+                  InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                        ));
+                      },
+                      child: Column(
+                        children: [
+                          Image.network("${modell.servicee![index].seImagen}"),
+                          Text(
+                            " ${modell.servicee![index].seNombre}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 11.5, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )),
+                ],
+              ),
+            );
+          },
+        ));
+    /* return */ /* GridView.builder(
+      padding: EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
+      shrinkWrap: true,
+      itemCount: modell.servicee!.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 5,
+          crossAxisSpacing: 10,
+          childAspectRatio: (4 / 2.5)),
+      //itemCount: services?.length,
+      itemBuilder: (context, index) {
+        return Container(
+          child: Column(
+            children: [
+              InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => LoginPage(),
+                    ));
+                  },
+                  child: Column(
+                    children: [
+                      Image.network("${modell.servicee![index].seImagen}"),
+                      Text(
+                        " ${modell.servicee![index].seNombre}",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  )),
+            ],
+          ),
+        );
+      },
+    ); */
+  }
+
+  Widget _buildLoading() => Center(child: CircularProgressIndicator());
+  Widget _buildLoading1() => Center(child: CircularProgressIndicator());
 }

@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
         fontFamily: 'inter',
         scaffoldBackgroundColor: Colors.white,
       ),
-      --EEE
       home: /* LoginPage */ /* MyPruebaa */ MainPage /* MyAppp */ /* LoginPage */ (),
     );
   }
