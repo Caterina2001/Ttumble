@@ -374,7 +374,7 @@ class MyRegisterModal extends State<RegisterModal> {
       future: _futureAlbum,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Text(snapshot.data!.fullname);
+          //return Text(snapshot.data!.fullname);
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }

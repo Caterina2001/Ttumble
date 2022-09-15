@@ -304,9 +304,9 @@ class MyRegisterModall extends State<RegisterModall> {
       future: _futureSignUp,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Text(snapshot.data!.fullname);
+          //return Text(snapshot.data!.fullname);
           // ignore: dead_code
-          Text(snapshot.data!.email);
+          //Text(snapshot.data!.email);
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }

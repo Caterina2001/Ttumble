@@ -80,19 +80,19 @@ String AlbumToJson(List<SignUp> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class SignUp {
-  final String number;
-  final String fullname;
-  final String email;
-  final String password;
+  String? number;
+  String? fullname;
+  String? email;
+  String? password;
   /* final String email;
   final String fullname;
   final String password; */
 
-  const SignUp({
-    required this.number,
-    required this.fullname,
-    required this.email,
-    required this.password,
+  SignUp({
+    this.number,
+    this.fullname,
+    this.email,
+    this.password,
   });
 
   factory SignUp.fromJson(Map<String, dynamic> json) => SignUp(
