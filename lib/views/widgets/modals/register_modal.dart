@@ -1,147 +1,48 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ttumble/views/prueba.dart';
+import 'package:flutter/services.dart';
 
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:ttumble/views/screens/cards_page.dart';
+import 'package:ttumble/models/core/ttumble2.dart';
 
 import '../../../models/INFO.dart';
-import '../../../models/core/ttumble2.dart';
-import '../../../services/data_signup.dart';
+import '../../../models/RegisterService.dart';
 import '../../../services/signup_service.dart';
 import '../../../services/signupservice.dart';
+import '../../screens/home_page.dart';
 import '../../screens/location.dart';
 import '../../utils/AppColor.dart';
 import '../custom_text_field.dart';
 import 'login_modal.dart';
 
 void main() {
-  runApp(const RegisterModal());
+  runApp(const RegisterModall());
 }
 
-class RegisterModal extends StatefulWidget {
-  const RegisterModal({key});
+class RegisterModall extends StatefulWidget {
+  const RegisterModall({key});
 
   @override
-  State<RegisterModal> createState() {
-    return MyRegisterModal();
+  State<RegisterModall> createState() {
+    return MyRegisterModall();
   }
 }
 
 // ignore: must_be_immutable
-class MyRegisterModal extends State<RegisterModal> {
+class MyRegisterModall extends State<RegisterModall> {
   final TextEditingController numberController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController fullnameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  Future<SignUp>? _futureAlbum;
+  final TextEditingController confpasswordController = TextEditingController();
+  Future<SignUp /* RegisterServices */ >? _futureSignUp;
+  final formKey = GlobalKey<FormState>();
+  String usu = "";
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Wrap(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 85 / 100,
-          padding: EdgeInsets.only(left: 16, right: 16, bottom: 32, top: 16),
-          decoration: BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-          //child: (_futureAlbum == null) ? buildColumn() : buildFutureBuilder(),
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            physics: BouncingScrollPhysics(),
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 35 / 100,
-                  margin: EdgeInsets.only(bottom: 20),
-                  height: 6,
-                  decoration: BoxDecoration(
-                      color: Colors.blue[300],
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-              // header
-              Container(
-                margin: EdgeInsets.only(bottom: 24),
-                child: Text(
-                  'Sign In',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'inter'),
-                ),
-              ),
-              // Form
-              (_futureAlbum == null) ? buildColumn() : buildFutureBuilder(),
-
-              // Login textbutton
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  showModalBottomSheet(
-                    context: context,
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20))),
-                    isScrollControlled: true,
-                    builder: (context) {
-                      return LoginModal();
-                    },
-                  );
-                },
-                style: TextButton.styleFrom(
-                  primary: Colors.white,
-                ),
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Already have an account? ',
-                    style: TextStyle(color: Colors.grey),
-                    children: [
-                      TextSpan(
-                          style: TextStyle(
-                            color: AppColor.primary,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'inter',
-                          ),
-                          text: 'Log In')
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        )
-      ],
-    ));
-    /*  Future<void> _registration() async {
-      String number = numberController.text.trim();
-      String email = emailController.text.trim();
-      String fullname = fullnameController.text.trim();
-      String password = passwordController.text.trim();
-      SignUp signUp = SignUp(
-          number: number, email: email, fullname: fullname, password: password);
-
-      var provider = Provider.of<DataClass>(context, listen: false);
-      await provider.postData(signUp);
-      if (provider.isBack) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Location()),
-        );
-      }
-    } */
-
-    /*  return Wrap(
+    return Wrap(
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
@@ -151,230 +52,261 @@ class MyRegisterModal extends State<RegisterModal> {
               color: Colors.white,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-          child: (_futureAlbum == null) ? buildColumn() : buildFutureBuilder(),
-          /* child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            physics: BouncingScrollPhysics(),
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 35 / 100,
-                  margin: EdgeInsets.only(bottom: 20),
-                  height: 6,
-                  decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-              // header
-              Container(
-                margin: EdgeInsets.only(bottom: 24),
-                child: Text(
-                  'Sign In',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'inter'),
-                ),
-              ),
-              // Form
-              IntlPhoneField(
-                decoration: InputDecoration(
-                  hoverColor: AppColor.primary,
-                  iconColor: AppColor.primary,
-                  focusColor: AppColor.primary,
-                  fillColor: AppColor.primary,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(),
+          child: Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: formKey,
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              physics: BouncingScrollPhysics(),
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 35 / 100,
+                    margin: EdgeInsets.only(bottom: 20),
+                    height: 6,
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(20)),
                   ),
                 ),
-                initialCountryCode: 'US',
-                onChanged: (phone) {
-                  print(phone.completeNumber);
-                },
-              ),
-              CustomTextField(
-                  controller: emailController,
-                  title: 'E-Mail',
-                  hint: 'yourmail@mail.com',
-                  margin: EdgeInsets.only(top: 16),
-                  padding: EdgeInsets.all(10.0)),
-              CustomTextField(
-                  controller: fullnameController,
-                  title: 'Full Name',
-                  hint: 'Your full name',
-                  margin: EdgeInsets.only(top: 16),
-                  padding: EdgeInsets.all(10.0)),
-              CustomTextField(
-                  controller: passwordController,
-                  title: 'Password',
-                  hint: '**********',
-                  margin: EdgeInsets.only(top: 16),
-                  padding: EdgeInsets.all(10.0)),
-              CustomTextField(
-                  controller: passwordController,
-                  title: 'Repeat your Password',
-                  hint: '**********',
-                  obsecureText: true,
-                  margin: EdgeInsets.only(top: 16),
-                  padding: EdgeInsets.all(10.0)),
+                // header
+                Container(
+                  margin: EdgeInsets.only(bottom: 24),
+                  child: Text(
+                    'Sign In',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'inter'),
+                  ),
+                ),
+                // Form
+                (_futureSignUp == null) ? buildColumn() : buildFutureBuilder(),
 
-              // Register Button
-              /* Builder(
-                builder: (BuildContext newContext) {
-                  return RaisedButton(
-                      child: Text('test1'),
-                      onPressed: () {
-                        // ignore: unnecessary_statements
-                        newContext.read<DataClass>().postData;
-                      });
-                },
-              ),
-
-              Builder(
-                builder: (BuildContext newContext) {
-                  return RaisedButton(
-                      child: Text('test2'),
-                      onPressed: () {
-                        // ignore: unnecessary_statements
-                        _registration();
-                      });
-                },
-              ), */
-              Container(
-                margin: EdgeInsets.only(top: 32, bottom: 6),
-                width: MediaQuery.of(context).size.width,
-                height: 60,
-                /* child: GestureDetector(onTap: _registration), */
-                /* child: GestureDetector(
-                    onTap: () {
-                      _registration();
-                    },
-                  ) */
-
-                child: ElevatedButton(
+                // Login textbutton
+                TextButton(
                   onPressed: () {
-                    /* _registration(); */
-                    /* Navigator.of(context).pop();
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => /* PageSwitcher */ Location())) */
+                    Navigator.of(context).pop();
+                    showModalBottomSheet(
+                      context: context,
+                      backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20))),
+                      isScrollControlled: true,
+                      builder: (context) {
+                        return LoginModal();
+                      },
+                    );
                   },
-                  child: Text('Sign In Now',
-                      style: TextStyle(
-                          color: AppColor.secondary,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'inter')),
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    primary: AppColor.primary,
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                  ),
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Already have an account? ',
+                      style: TextStyle(color: Colors.grey),
+                      children: [
+                        TextSpan(
+                            style: TextStyle(
+                              color: AppColor.primary,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'inter',
+                            ),
+                            text: 'Log In')
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // Login textbutton
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  showModalBottomSheet(
-                    context: context,
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20))),
-                    isScrollControlled: true,
-                    builder: (context) {
-                      return LoginModal();
-                    },
-                  );
-                },
-                style: TextButton.styleFrom(
-                  primary: Colors.white,
-                ),
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Already have an account? ',
-                    style: TextStyle(color: Colors.grey),
-                    children: [
-                      TextSpan(
-                          style: TextStyle(
-                            color: AppColor.primary,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'inter',
-                          ),
-                          text: 'Log In')
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ), */
+              ],
+            ),
+          ),
         )
       ],
-    ); */
+    );
   }
+
+  String _password = '';
+  String _repeatPassword = '';
 
   Column buildColumn() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        /*  TextField(
-          controller: fullnameController,
-          decoration: const InputDecoration(hintText: 'Enter Title'),
-        ), */
-        CustomTextField(
-            controller: emailController,
-            title: 'E-Mail',
-            hint: 'yourmail@mail.com',
-            margin: EdgeInsets.only(top: 16),
-            padding: EdgeInsets.all(10.0)),
-        CustomTextField(
-            controller: fullnameController,
-            title: 'Full Name',
-            hint: 'Your full name',
-            margin: EdgeInsets.only(top: 16),
-            padding: EdgeInsets.all(10.0)),
-        CustomTextField(
-            controller: passwordController,
-            title: 'Password',
-            hint: '**********',
-            margin: EdgeInsets.only(top: 16),
-            padding: EdgeInsets.all(10.0)),
-        CustomTextField(
-            controller: passwordController,
-            title: 'Repeat your Password',
-            hint: '**********',
-            obsecureText: true,
-            margin: EdgeInsets.only(top: 16),
-            padding: EdgeInsets.all(10.0)),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              _futureAlbum = createSignUp(
-                  fullnameController.text,
-                  emailController.text,
-                  emailController.text,
-                  numberController.text);
-            });
-          },
-          child: const Text('Create Data'),
+        TextFormField(
+          controller: numberController,
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly
+          ],
+          decoration: InputDecoration(
+              isDense: true,
+              hintText: 'Enter Number',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
+                ),
+              ),
+
+              /* InputBorder.none, */
+              fillColor: Colors.grey[200],
+              filled: true),
         ),
+        Padding(padding: EdgeInsets.only(bottom: 20)),
+        TextFormField(
+          controller: fullnameController,
+          decoration: InputDecoration(
+              isDense: true,
+              hintText: 'Enter Full Name',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
+                ),
+              ),
+
+              /* InputBorder.none, */
+              fillColor: Colors.grey[200],
+              filled: true),
+        ),
+        Padding(padding: EdgeInsets.only(bottom: 20)),
+        TextFormField(
+          controller: emailController,
+          validator: (email) => email != null && !EmailValidator.validate(email)
+              ? 'Enter a valid email'
+              : null,
+          decoration: InputDecoration(
+              hintText: 'Enter email',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
+                ),
+              ),
+
+              /* InputBorder.none, */
+              fillColor: Colors.grey[200],
+              filled: true),
+        ),
+        Padding(padding: EdgeInsets.only(bottom: 20)),
+        TextFormField(
+          obscureText: true,
+          controller: passwordController,
+          decoration: InputDecoration(
+              hintText: 'Password',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
+                ),
+              ),
+
+              /* InputBorder.none, */
+              fillColor: Colors.grey[200],
+              filled: true),
+          validator: (value) {
+            if (value != null && value.length < 7) {
+              return 'Enter min 7 caracter';
+            } else {
+              return null;
+            }
+          },
+        ),
+        Padding(padding: EdgeInsets.only(bottom: 20)),
+        TextFormField(
+          // ignore: non_constant_identifier_names
+          validator: (PassCurrentValue) {
+            RegExp regex = RegExp(
+                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+            var passNonNullValue = PassCurrentValue ?? "";
+            if (passNonNullValue.isEmpty) {
+              return ("Password is required");
+            } else if (passNonNullValue.length < 6) {
+              return ("Password Must be more than 5 characters");
+            }
+            if (passNonNullValue != passwordController.text) {
+              return ("Password not match");
+            }
+
+            return null;
+          },
+          obscureText: true,
+          controller: confpasswordController,
+          decoration: InputDecoration(
+              hintText: 'Repeat Password',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
+                ),
+              ),
+              fillColor: Colors.grey[200],
+              filled: true),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 32, bottom: 6),
+          width: MediaQuery.of(context).size.width,
+          height: 60,
+          child: ElevatedButton(
+            onPressed: () {
+              final isValidForm = formKey.currentState!.validate();
+              if (isValidForm) {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => LoginModal()));
+                setState(() {
+                  usu = fullnameController.text;
+                  // ignore: unnecessary_cast
+                  _futureSignUp = createSignUp /* postServices */ (
+                      numberController.text,
+                      fullnameController.text,
+                      emailController.text,
+                      passwordController.text);
+                });
+              }
+              /* Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => HomePage()));
+              setState(() {
+                // ignore: unnecessary_cast
+                _futureSignUp = createSignUp(fullnameController.text,
+                    emailController.text, passwordController.text);
+              }); */
+            },
+            child: const Text('Sign In Now',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'inter')),
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              primary: AppColor.primary,
+            ),
+          ),
+        )
       ],
     );
   }
 
-  FutureBuilder<SignUp> buildFutureBuilder() {
-    return FutureBuilder<SignUp>(
-      future: _futureAlbum,
+  FutureBuilder<SignUp /* RegisterServices */ > buildFutureBuilder() {
+    return FutureBuilder<SignUp /* RegisterServices */ >(
+      future: _futureSignUp,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           //return Text(snapshot.data!.fullname);
+          // ignore: dead_code
+          //Text(snapshot.data!.email);
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
