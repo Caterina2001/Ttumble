@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:ttumble/views/screens/home_page.dart';
 import '../../../services/login_service.dart';
 import '../../screens/location.dart';
@@ -30,6 +33,37 @@ class LoginModal extends State<LoginModall> {
 
   final TextEditingController userController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  void login(String user, pass) async {
+    try {
+      Response response = await post(
+          Uri.parse(
+              'https://en2gomas.com/api.tumble/controller/usuarioController.php?op=login'),
+          body: {'user': user, 'pass': pass});
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+        /* print(data);
+
+        print(data[0]['usu_id']);  */ //
+        if (data == 'No encontrado') {
+          print('Usuario no encontrado, intente de nuevo');
+          _showMyDialog();
+        } else {
+          print(data);
+
+          print(data[0]['usu_id']);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Location()));
+        }
+        //print('Login successfully');
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Future<LogIn>? _futureLogIn;
   final formKey = GlobalKey<FormState>();
 
@@ -80,45 +114,8 @@ class LoginModal extends State<LoginModall> {
                   ),
                 ),
                 (_futureLogIn == null) ? buildColumn() : buildFutureBuilder(),
-                // Form
-                /* CustomTextField(
-                title: 'E-Mail',
-                hint: 'yourmail@mail.com',
-                margin: EdgeInsets.all(0.0),
-                padding: EdgeInsets.all(10.0),
-              ),
-              CustomTextField(
-                title: 'Password',
-                hint: '**********',
-                obsecureText: true,
-                margin: EdgeInsets.only(top: 16),
-                padding: EdgeInsets.all(10.0),
-              ), */
-                // Log in Button
 
-                Container(
-                  margin: EdgeInsets.only(top: 32, bottom: 6),
-                  width: MediaQuery.of(context).size.width,
-                  height: 60,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => Location()));
-                    },
-                    child: Text('Log In Now',
-                        style: TextStyle(
-                            color: AppColor.secondary,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'inter')),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      primary: AppColor.primary,
-                    ),
-                  ),
-                ),
+                // Log in Button
 
                 TextButton(
                   onPressed: () {},
@@ -155,10 +152,6 @@ class LoginModal extends State<LoginModall> {
       children: <Widget>[
         TextFormField(
           controller: userController,
-          //onSaved: (input) => logIn.user = input!,
-          /* validator: (email) => email != null && !EmailValidator.validate(email)
-              ? 'Enter a valid email'
-              : null, */
           decoration: InputDecoration(
               hintText: 'Enter email',
               border: OutlineInputBorder(
@@ -191,13 +184,6 @@ class LoginModal extends State<LoginModall> {
               /* InputBorder.none, */
               fillColor: Colors.grey[200],
               filled: true),
-          /* validator: (value) {
-            if (value != null) {
-              return 'Password is required';
-            } else {
-              return null;
-            }
-          }, */
         ),
         Padding(padding: EdgeInsets.only(bottom: 20)),
         Container(
@@ -206,33 +192,10 @@ class LoginModal extends State<LoginModall> {
           height: 60,
           child: ElevatedButton(
             onPressed: () {
-              /*  final wrap = globalFormKey.currentState;
-              if (wrap!.validate()) {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => HomePage()));
-                wrap.save();
-                return print(logIn.toJson());
-              } */
-
-              /* return false;
-              if (validateAndSave()) {
-                print(logIn.toJson());
-              } */
-              final isValidForm = formKey.currentState!.validate();
-              if (isValidForm) {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => HomePage()));
-                setState(() {
-                  //usu = fullnameController.text;
-                  // ignore: unnecessary_cast
-                  _futureLogIn = createLogIn(
-                    userController.text,
-                    passController.text,
-                  );
-                });
-              }
+              login(userController.text.toString(),
+                  passController.text.toString());
             },
-            child: const Text('Sign In Now',
+            child: const Text('Log In Now',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -244,7 +207,8 @@ class LoginModal extends State<LoginModall> {
               primary: AppColor.primary,
             ),
           ),
-        )
+        ),
+        Text('data')
       ],
     );
   }
@@ -273,5 +237,35 @@ class LoginModal extends State<LoginModall> {
       return true;
     }
     return false;
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Please Try Again'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Email or Password incorrect'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                'Approve',
+                style: TextStyle(color: Colors.orange),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
