@@ -12,7 +12,7 @@ class RemoteService {
     var client = http.Client();
 
     var uri = Uri.parse(
-        'http://en2gomas.com/api.tumble/controller/serviceController.php?op=AllService');
+        'https://en2gomas.com/api.tumble/controller/serviceController.php?op=AllService');
 
     var response = await client.get(uri);
     if (response.statusCode == 200) {
@@ -29,7 +29,7 @@ class RemoteSpecialService {
     var client = http.Client();
 
     var uri = Uri.parse(
-        'http://en2gomas.com/api.tumble/controller/serviceController.php?op=SpecialService');
+        'https://en2gomas.com/api.tumble/controller/serviceController.php?op=SpecialService');
 
     var response = await client.get(uri);
     if (response.statusCode == 200) {

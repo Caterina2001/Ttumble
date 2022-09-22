@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ttumble/views/screens/description_page.dart';
 import 'package:intl/intl.dart';
+import 'package:ttumble/views/utils/variables.dart';
 
 import '../utils/AppColor.dart';
 import '../utils/utilss.dart';
 import '../widgets/button_widget.dart';
 import 'time_picker_page.dart';
-
-var flo = '';
 
 class DatePickerPage extends StatefulWidget {
   @override
@@ -68,7 +67,7 @@ class _DatePickerPageState extends State<DatePickerPage> {
                 padding: EdgeInsets.only(
                     top: 30), //You can use EdgeInsets like above
                 margin: EdgeInsets.all(5),
-                child: Text('$flo',
+                child: Text('$userDate',
                     style: TextStyle(
                         fontFamily: 'Ang',
                         fontWeight: FontWeight.w700,
@@ -85,7 +84,8 @@ class _DatePickerPageState extends State<DatePickerPage> {
                   onClicked: () {
                     final value = DateFormat('yyyy/MM/dd').format(dateTime);
                     Utilss.showSnackBar(context, 'Date Selected $value');
-                    flo = value;
+                    userDate = value;
+                    print(userDate);
 
                     Navigator.pop(context);
                     Navigator.of(context).push(MaterialPageRoute(

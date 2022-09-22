@@ -14,6 +14,7 @@ import '../../screens/location.dart';
 import '../../utils/AppColor.dart';
 import '../custom_text_field.dart';
 import 'login_modal.dart';
+import 'login_modalprueba.dart';
 
 void main() {
   runApp(const RegisterModall());
@@ -100,7 +101,7 @@ class MyRegisterModall extends State<RegisterModall> {
                               topRight: Radius.circular(20))),
                       isScrollControlled: true,
                       builder: (context) {
-                        return LoginModal();
+                        return LoginModall();
                       },
                     );
                   },
@@ -262,8 +263,8 @@ class MyRegisterModall extends State<RegisterModall> {
             onPressed: () {
               final isValidForm = formKey.currentState!.validate();
               if (isValidForm) {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => LoginModal()));
+                /* Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => LoginModall()));  */
                 setState(() {
                   usu = fullnameController.text;
                   // ignore: unnecessary_cast
@@ -273,6 +274,19 @@ class MyRegisterModall extends State<RegisterModall> {
                       emailController.text,
                       passwordController.text);
                 });
+                Navigator.of(context).pop();
+                showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20))),
+                  isScrollControlled: true,
+                  builder: (context) {
+                    return LoginModall();
+                  },
+                );
               }
               /* Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => HomePage()));

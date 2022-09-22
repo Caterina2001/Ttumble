@@ -1,12 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:ttumble/views/screens/calendar_page.dart';
 import 'package:ttumble/views/screens/description_page.dart';
 import 'package:ttumble/views/utils/AppColor.dart';
 import 'package:ttumble/views/utils/variables.dart';
 import 'package:ttumble/views/widgets/custom_text_field.dart';
 
-Future location() async {
+Future location_page() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -25,16 +28,42 @@ class MyPrueba extends StatelessWidget {
         title: title,
 /*         theme: ThemeData(primarySwatch: AppColor.primary),
  */
-        home: Location(),
+        home: Location_Page(),
       );
 }
 
-class Location extends StatefulWidget {
+class Location_Page extends StatefulWidget {
   @override
   _Location createState() => _Location();
 }
 
-class _Location extends State<Location> {
+class _Location extends State<Location_Page> {
+  final TextEditingController userLocation = TextEditingController();
+  final TextEditingController okokok = TextEditingController();
+  final TextEditingController city = TextEditingController();
+  final TextEditingController zipcode = TextEditingController();
+  final TextEditingController street = TextEditingController();
+  final TextEditingController apartment = TextEditingController();
+  //String locationFull = '';
+  void loc(String userId, location) async {
+    try {
+      Response response = await post(
+          Uri.parse(
+              'https://en2gomas.com/api.tumble/controller/ticketController.php?op=Insert'),
+          body: {'userId': userId, 'location': location});
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+
+        print(data);
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   final items = ['New York', 'Connecticut'];
   String? value;
 
@@ -114,10 +143,12 @@ class _Location extends State<Location> {
                                   child: DropdownButton<String>(
                                     hint: Container(
                                       width: 150, //and here
+
                                       child: Text(
                                         "Select State",
                                         style: TextStyle(
-                                            color: Colors.grey, fontSize: 14),
+                                            color: Colors.grey[700],
+                                            fontSize: 16),
                                       ),
                                     ),
                                     value: value,
@@ -131,10 +162,10 @@ class _Location extends State<Location> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              /*  SizedBox(
                                 height: 0,
                               ),
-                              /*   SizedBox(
+                                SizedBox(
                                 height: 0,
                               ),
                               SizedBox(
@@ -142,11 +173,12 @@ class _Location extends State<Location> {
                               ),
                               Container(
                                 child: CustomTextField(
+                                  controller: Street,
                                     title: '', hint: 'Street Adress'),
-                              ),
+                              ), */
                               SizedBox(
                                 height: 0,
-                              ), */
+                              ),
                               Row(
                                 children: [
                                   Expanded(
@@ -156,12 +188,24 @@ class _Location extends State<Location> {
                                         height: 3.7,
                                       ),
                                       Container(
-                                          /* child: CustomTextField(
-                                            title: '',
-                                            hint: 'Street Adress',
-                                            margin: EdgeInsets.only(top: 16),
-                                            padding: EdgeInsets.all(10.0)), */
-                                          ),
+                                          margin: EdgeInsets.only(top: 16),
+                                          padding: EdgeInsets.all(1.0),
+                                          child: TextField(
+                                            controller: street,
+                                            cursorColor: AppColor.primary,
+                                            decoration: InputDecoration(
+                                                hintText: 'Street Adress',
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  borderSide: BorderSide(
+                                                    width: 0,
+                                                    style: BorderStyle.none,
+                                                  ),
+                                                ),
+                                                fillColor: Colors.white,
+                                                filled: true),
+                                          )),
                                     ],
                                   )),
                                   VerticalDivider(),
@@ -172,12 +216,24 @@ class _Location extends State<Location> {
                                         height: 3.7,
                                       ),
                                       Container(
-                                          /*  child: CustomTextField(
-                                            title: '',
-                                            hint: 'Apartment',
-                                            margin: EdgeInsets.only(top: 16),
-                                            padding: EdgeInsets.all(10.0)), */
-                                          ),
+                                          margin: EdgeInsets.only(top: 16),
+                                          padding: EdgeInsets.all(1.0),
+                                          child: TextField(
+                                            controller: apartment,
+                                            cursorColor: AppColor.primary,
+                                            decoration: InputDecoration(
+                                                hintText: 'Apartment #',
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  borderSide: BorderSide(
+                                                    width: 0,
+                                                    style: BorderStyle.none,
+                                                  ),
+                                                ),
+                                                fillColor: Colors.white,
+                                                filled: true),
+                                          )),
                                     ],
                                   ))
                                 ],
@@ -194,12 +250,24 @@ class _Location extends State<Location> {
                                         height: 3.7,
                                       ),
                                       Container(
-                                          /*  child: CustomTextField(
-                                              title: '',
-                                              hint: 'City',
-                                              margin: EdgeInsets.only(top: 16),
-                                              padding: EdgeInsets.all(10.0)) */
-                                          ),
+                                          margin: EdgeInsets.only(top: 16),
+                                          padding: EdgeInsets.all(1.0),
+                                          child: TextField(
+                                            controller: city,
+                                            cursorColor: AppColor.primary,
+                                            decoration: InputDecoration(
+                                                hintText: 'City',
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  borderSide: BorderSide(
+                                                    width: 0,
+                                                    style: BorderStyle.none,
+                                                  ),
+                                                ),
+                                                fillColor: Colors.white,
+                                                filled: true),
+                                          )),
                                     ],
                                   )),
                                   VerticalDivider(),
@@ -210,12 +278,25 @@ class _Location extends State<Location> {
                                         height: 3.7,
                                       ),
                                       Container(
-                                          /* child: CustomTextField(
-                                            title: '',
-                                            hint: 'ZipCode',
-                                            margin: EdgeInsets.only(top: 16),
-                                            padding: EdgeInsets.all(10.0)), */
-                                          ),
+                                        margin: EdgeInsets.only(top: 16),
+                                        padding: EdgeInsets.all(1.0),
+                                        child: TextField(
+                                          controller: zipcode,
+                                          cursorColor: AppColor.primary,
+                                          decoration: InputDecoration(
+                                              hintText: 'ZipCode',
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                borderSide: BorderSide(
+                                                  width: 0,
+                                                  style: BorderStyle.none,
+                                                ),
+                                              ),
+                                              fillColor: Colors.white,
+                                              filled: true),
+                                        ),
+                                      ),
                                     ],
                                   ))
                                 ],
@@ -246,6 +327,18 @@ class _Location extends State<Location> {
             padding: const EdgeInsets.only(top: 40),
             child: TextButton(
               onPressed: () {
+                locationFull = zipcode.text.toString() +
+                    " " +
+                    value.toString() +
+                    ", " +
+                    (city.text.toString() +
+                        " " +
+                        street.text.toString() +
+                        " " +
+                        apartment.text.toString());
+                print(locationFull);
+
+                //loc('$userId', locationFull);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => Description(),
                 ));

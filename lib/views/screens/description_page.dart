@@ -1,11 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:ttumble/views/screens/calendar_page.dart';
 import 'package:ttumble/views/screens/date_page.dart';
+import 'package:ttumble/views/utils/variables.dart';
 import '../chat_page.dart';
 import '../utils/AppColor.dart';
 import 'date_picker_page.dart';
 
 class Description extends StatelessWidget {
+  final TextEditingController description = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,6 +96,7 @@ class Description extends StatelessWidget {
                                 ),
                                 Container(
                                   child: TextField(
+                                    controller: description,
                                     minLines: 3,
                                     maxLines: 5,
                                     cursorColor: Colors.red,
@@ -136,6 +143,9 @@ class Description extends StatelessWidget {
             padding: const EdgeInsets.only(top: 40),
             child: TextButton(
               onPressed: () {
+                userDescription = description.text.toString();
+                //loc(userId, locationFull, description.text.toString());
+
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => /* Chat */ DatePickerPage(),
                 ));

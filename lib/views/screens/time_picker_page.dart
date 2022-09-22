@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:http/http.dart';
 import 'package:ttumble/main.dart';
 import 'package:ttumble/views/chat_page.dart';
 import 'package:ttumble/views/screens/home_page.dart';
+import 'package:ttumble/views/utils/variables.dart';
 
 import '../utils/AppColor.dart';
 import '../utils/utilss.dart';
@@ -11,14 +15,36 @@ import 'package:intl/intl.dart';
 
 import 'date_picker_page.dart';
 
-var flo = '';
-
 class TimePickerPage extends StatefulWidget {
   @override
   _TimePickerPageState createState() => _TimePickerPageState();
 }
 
 class _TimePickerPageState extends State<TimePickerPage> {
+  void ticket(String userId, location, description, date) async {
+    try {
+      Response response = await post(
+          Uri.parse(
+              'https://en2gomas.com/api.tumble/controller/ticketController.php?op=Insert'),
+          body: {
+            'userId': userId,
+            'location': location,
+            'description': description,
+            'date': date
+          });
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+
+        print(data);
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   DateTime dateTime = DateTime.now();
 
   @override
@@ -79,7 +105,7 @@ class _TimePickerPageState extends State<TimePickerPage> {
                 padding: EdgeInsets.only(
                     top: 30), //You can use EdgeInsets like above
                 margin: EdgeInsets.all(5),
-                child: Text('$flo',
+                child: Text('$userDate',
                     style: TextStyle(
                         fontFamily: 'Ang',
                         fontWeight: FontWeight.w700,
@@ -94,7 +120,11 @@ class _TimePickerPageState extends State<TimePickerPage> {
                   onClicked: () {
                     final value = DateFormat('HH:mm').format(dateTime);
                     Utilss.showSnackBar(context, 'Hour Selected $value');
-                    flo = value;
+                    userHour = value;
+                    print(userHour);
+                    print('okook');
+                    dateFull = (userDate + ", " + userHour);
+                    ticket(userId, locationFull, userDescription, dateFull);
 
                     Navigator.pop(context);
                     Navigator.of(context).push(MaterialPageRoute(

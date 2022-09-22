@@ -4,6 +4,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:ttumble/views/screens/home_page.dart';
+import 'package:ttumble/views/screens/location_page.dart';
+import 'package:ttumble/views/utils/variables.dart';
 import '../../../services/login_service.dart';
 import '../../screens/location.dart';
 import '../../utils/AppColor.dart';
@@ -30,6 +32,7 @@ class LoginModal extends State<LoginModall> {
     super.initState();
     logIn = new LogIn(pass: '', user: '');
   } */
+  static var okok = '';
 
   final TextEditingController userController = TextEditingController();
   final TextEditingController passController = TextEditingController();
@@ -52,8 +55,12 @@ class LoginModal extends State<LoginModall> {
           print(data);
 
           print(data[0]['usu_id']);
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Location()));
+          //okok = (data[0]['usu_id']);
+          userId = (data[0]['usu_id']);
+          userName = (data[0]['usu_nombre']);
+
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => Location_Page()));
         }
         //print('Login successfully');
       } else {

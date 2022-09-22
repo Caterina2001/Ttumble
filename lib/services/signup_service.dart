@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:ttumble/views/screens/home_page.dart';
 import 'package:ttumble/views/screens/location.dart';
+import 'package:ttumble/views/widgets/modals/login_modalprueba.dart';
 
 import '../models/INFO.dart';
 import '../models/RegisterService.dart';
