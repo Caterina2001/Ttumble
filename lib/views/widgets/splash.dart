@@ -9,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ttumble/main.dart';
 import 'package:ttumble/views/screens/auth/login_page.dart';
 import 'package:ttumble/views/screens/home_page.dart';
+import 'package:ttumble/views/screens/location_page.dart';
+import 'package:ttumble/views/utils/AppColor.dart';
 import 'package:ttumble/views/utils/variables.dart';
 
 import '../screens/location.dart';
@@ -33,7 +35,7 @@ class _SplashState extends State<Splash> {
           Duration(milliseconds: 2500),
           () => Get.to(obtainedEmail == null /* && finalName == null */
               ? LoginPage()
-              : Location()));
+              : Location_Page()));
     });
     super.initState();
     //navigate();
@@ -63,10 +65,15 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Text('SPLASH SCREEN'),
-      ),
-    );
+        backgroundColor: AppColor.primary,
+        body: Container(
+          child: Center(
+            child: Text(
+              'SPLASH SCREEN WITH LOGO TTUMBLE HERE',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ));
   }
 }
 

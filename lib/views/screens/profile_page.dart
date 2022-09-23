@@ -115,7 +115,7 @@ class ProfilePage extends StatelessWidget {
                         await SharedPreferences.getInstance();
                     //sharedPreferences.remove('user');
                     sharedPreferences.remove('usu_correo');
-                    Get.to(HomePage());
+                    Get.to(MainPage());
                   },
                   child: const Text('Log Out',
                       style: TextStyle(

@@ -406,7 +406,7 @@ class _HomePageState extends State<HomePage> {
                   InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => LoginPage(),
+                          builder: (context) => Splash(),
                         ));
                       },
                       child: Column(
