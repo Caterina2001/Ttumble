@@ -2,10 +2,15 @@ import 'dart:convert';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ttumble/main.dart';
 import 'package:ttumble/views/screens/home_page.dart';
 import 'package:ttumble/views/screens/location_page.dart';
 import 'package:ttumble/views/utils/variables.dart';
+import 'package:ttumble/views/widgets/splash.dart';
 import '../../../services/login_service.dart';
 import '../../screens/location.dart';
 import '../../utils/AppColor.dart';
@@ -32,8 +37,9 @@ class LoginModal extends State<LoginModall> {
     super.initState();
     logIn = new LogIn(pass: '', user: '');
   } */
-  static var okok = '';
-
+  //static String okok = '';
+  late String okokok;
+  var dat;
   final TextEditingController userController = TextEditingController();
   final TextEditingController passController = TextEditingController();
   void login(String user, pass) async {
@@ -58,9 +64,12 @@ class LoginModal extends State<LoginModall> {
           //okok = (data[0]['usu_id']);
           userId = (data[0]['usu_id']);
           userName = (data[0]['usu_nombre']);
+          print(userName);
+          dat = userName.toString();
+          // ignore: unused_local_variable
 
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => Location_Page()));
+          /*  Navigator.push(context,
+              MaterialPageRoute(builder: (context) => Location_Page())); */
         }
         //print('Login successfully');
       } else {
@@ -198,9 +207,18 @@ class LoginModal extends State<LoginModall> {
           width: MediaQuery.of(context).size.width,
           height: 60,
           child: ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              //le agregue el async aqui, ver si login bien igual
               login(userController.text.toString(),
                   passController.text.toString());
+
+              final SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+              sharedPreferences.setString('usu_correo', userController.text);
+              //sharedPreferences.setString('usu_nombre', dat.toString());
+              //sharedPreferences.setString('usu_id', userId);
+
+              Get.to(MainPage());
             },
             child: const Text('Log In Now',
                 style: TextStyle(

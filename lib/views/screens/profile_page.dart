@@ -2,6 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ttumble/main.dart';
+import 'package:ttumble/views/screens/auth/login_page.dart';
+import 'package:ttumble/views/screens/home_page.dart';
 import '../utils/AppColor.dart';
 import '../widgets/user_info_tile.dart';
 
@@ -103,6 +108,26 @@ class ProfilePage extends StatelessWidget {
                   margin: EdgeInsets.only(bottom: 16),
                   label: 'Full Name',
                   value: 'Caterina Giannecchini',
+                ),
+                MaterialButton(
+                  onPressed: () async {
+                    final SharedPreferences sharedPreferences =
+                        await SharedPreferences.getInstance();
+                    //sharedPreferences.remove('user');
+                    sharedPreferences.remove('usu_correo');
+                    Get.to(HomePage());
+                  },
+                  child: const Text('Log Out',
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'inter')),
+                  /* style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    primary: AppColor.primary,
+                  ), */
                 ),
 
                 /* UserInfoTile(

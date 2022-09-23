@@ -1,10 +1,16 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ttumble/views/prueba.dart';
+import 'package:ttumble/views/widgets/modals/login_modalprueba.dart';
+import 'package:ttumble/views/widgets/splash.dart';
 
 import '../../blocs/covid_bloc/services_bloc.dart';
 import '../../models/Services.dart';
@@ -37,6 +43,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // TODO: implement initState
+
     servBloc.add(GetServiceList());
     speBloc.add(GetSpecialList());
     super.initState();
@@ -61,6 +68,7 @@ class _HomePageState extends State<HomePage> {
       });
     }
   } */
+  late String finalEmail;
 
   TextEditingController searchInputController = TextEditingController();
 
@@ -269,8 +277,10 @@ class _HomePageState extends State<HomePage> {
                               side: BorderSide(color: AppColor.primary),
                             ))),
                         onPressed: () {
+                          //Get.to(splash());
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => LoginPage(),
+                            builder: (context) =>
+                                Splash(), //quite el de login por splasah
                           ));
                         },
                         child: Row(
@@ -476,8 +486,9 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   InkWell(
                       onTap: () {
+                        //Get.to(splash());
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => LoginPage(),
+                          builder: (context) => Splash(),
                         ));
                       },
                       child: Column(
