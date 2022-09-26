@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:http/http.dart';
 import 'package:ttumble/main.dart';
-import 'package:ttumble/views/chat_page.dart';
+import 'package:ttumble/views/chat/chat_page.dart';
 import 'package:ttumble/views/screens/home_page.dart';
 import 'package:ttumble/views/utils/variables.dart';
 
@@ -32,6 +33,50 @@ class _TimePickerPageState extends State<TimePickerPage> {
             'description': description,
             'date': date
           });
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+
+        print(data);
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  /////
+  void chat(String userId, fullname, service) async {
+    try {
+      Response response = await post(
+          Uri.parse(
+              'https://en2gomas.com/api.tumble/controller/chatController.php?op=Insert'),
+          body: {
+            'userId': userId,
+            'fullname': fullname,
+            'service': service,
+          });
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+
+        print(data);
+        userIdChat = (data[0]['ch_id']);
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void chatId(int ch_id) async {
+    try {
+      Response response = await post(
+          Uri.parse(
+              'https://en2gomas.com/api.tumble/controller/messageController.php?op=message-chat-id'),
+          body: {'ch_id': ch_id});
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body.toString());
@@ -125,6 +170,16 @@ class _TimePickerPageState extends State<TimePickerPage> {
                     print('okook');
                     dateFull = (userDate + ", " + userHour);
                     ticket(userId, locationFull, userDescription, dateFull);
+                    chat(userId, userName, userServcie);
+                    chatId(5);
+                    completeService = ("Hello Ttumble I need a " +
+                        userServcie +
+                        " service, My location is " +
+                        locationFull +
+                        ", Description: " +
+                        userDescription +
+                        " ,In date: " +
+                        dateFull);
 
                     Navigator.pop(context);
                     Navigator.of(context).push(MaterialPageRoute(

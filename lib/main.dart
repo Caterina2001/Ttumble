@@ -5,10 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:ttumble/models/core/ttumble.dart';
 import 'package:ttumble/models/core/ttumble2.dart';
+import 'package:ttumble/views/chat/allchat.dart';
 import 'package:ttumble/views/screens/auth/login_page.dart';
 import 'package:ttumble/views/widgets/modals/register_modal.dart';
 
-import 'views/chat_page.dart';
+import 'views/chat/chat_page.dart';
 import 'views/screens/cards_page.dart';
 import 'views/screens/home_page.dart';
 import 'views/screens/profile_page.dart';
@@ -47,7 +48,8 @@ class _MainPageState extends State<MainPage> {
 
   final screens = [
     HomePage(),
-    Chat(),
+    //Chat(),
+    Allchat(),
     CardsPage(),
     ProfilePage(),
   ];

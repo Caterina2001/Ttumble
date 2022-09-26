@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:ttumble/views/prueba.dart';
 
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:ttumble/views/utils/variables.dart';
 
 class NewMessageWidget extends StatefulWidget {
   final ValueChanged<String> onSubmitted;
@@ -17,7 +21,31 @@ class NewMessageWidget extends StatefulWidget {
 }
 
 class _NewMessageWidgetState extends State<NewMessageWidget> {
-  final controller = TextEditingController();
+  void message(String texto, usu_id, usu_nivel, ch_id) async {
+    try {
+      Response response = await post(
+          Uri.parse(
+              'https://en2gomas.com/api.tumble/controller/messageController.php?op=Insert-message'),
+          body: {
+            'texto': texto,
+            'usu_id': usu_id,
+            'usu_nivel': usu_nivel,
+            'ch_id': ch_id
+          });
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+
+        print(data);
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  final messagecontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) => Container(
@@ -33,7 +61,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
                 color: Colors.white,
                 elevation: 5,
                 child: TextField(
-                  controller: controller,
+                  controller: messagecontroller,
                   onSubmitted: widget.onSubmitted,
                   decoration: const InputDecoration(
                     contentPadding:
@@ -49,11 +77,17 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
               shape: const CircleBorder(),
               color: Theme.of(context).colorScheme.primary,
               onPressed: () {
-                if (controller.text.trim().isEmpty) return;
+                if (messagecontroller.text.trim().isEmpty) return;
 
-                widget.onSubmitted(controller.text);
+                widget.onSubmitted(messagecontroller.text);
 
-                controller.clear();
+                ///
+                String text = messagecontroller.text;
+                message(text, userId, userNivel, userIdChat);
+
+                ///
+
+                messagecontroller.clear();
               },
               child: const Padding(
                 padding: EdgeInsets.all(10.0),

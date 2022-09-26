@@ -64,6 +64,7 @@ class LoginModal extends State<LoginModall> {
           //okok = (data[0]['usu_id']);
           userId = (data[0]['usu_id']);
           userName = (data[0]['usu_nombre']);
+          userNivel = (data[0]['usu_nivel']);
           print(userName);
           dat = userName.toString();
           // ignore: unused_local_variable

@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
-import '../main.dart';
-import '../models/message.dart';
-import 'screens/time_picker_page.dart';
-import 'utils/AppColor.dart';
-import 'widgets/message_bubble_widget.dart';
-import 'widgets/new_message_widget.dart';
+import 'package:ttumble/views/utils/variables.dart';
+import '../../main.dart';
+import 'message.dart';
+import '../screens/time_picker_page.dart';
+import '../utils/AppColor.dart';
+import 'message_bubble_widget.dart';
+import 'new_message_widget.dart';
 
 class Chat extends StatelessWidget {
   @override
@@ -37,37 +41,64 @@ class ChatPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<ChatPage> {
+  void chatId(String ch_id) async {
+    try {
+      Response response = await post(
+          Uri.parse(
+              'https://en2gomas.com/api.tumble/controller/messageController.php?op=message-chat-id'),
+          body: {'ch_id': ch_id});
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+
+        print(data);
+
+        data.forEach((element) => {textt = element['ms_texto']});
+        data.forEach((element) => {print(element['ms_texto'])});
+        print('este es el valor de text que envio ' + textt.toString());
+
+        List<Message> messages = [];
+
+        data.forEach((element) => {
+              Message(
+                text: element['ms_texto'],
+                date: DateTime.now().subtract(const Duration(minutes: 2)),
+                isSentByMe: true,
+              )
+            });
+
+        //textt = (data[0]['ms_texto']);
+
+        //print(data[0]['ms_texto']);
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   List<Message> messages = [
-    Message(
-      text: 'Soon we will be confirming your service.',
-      date: DateTime.now().subtract(const Duration(minutes: 1)),
-      isSentByMe: false,
-    ),
     Message(
       text: 'Hello Caterina! Thanks for using TTUMBLE.',
       date: DateTime.now().subtract(const Duration(minutes: 2)),
       isSentByMe: false,
     ),
-    Message(
-      text: 'Day selected: 8/25/2022 at 10:30',
-      date: DateTime.now().subtract(const Duration(minutes: 3)),
-      isSentByMe: true,
-    ),
-    Message(
-      text: 'Description of the service: Cleaning my kitchen',
-      date: DateTime.now().subtract(const Duration(minutes: 4)),
-      isSentByMe: true,
-    ),
-    Message(
-      text: 'My location is: Prueba Street #5, NEW YORK 2323, United States',
+    /* Message(
+      text: '$textt',
       date: DateTime.now().subtract(const Duration(minutes: 5)),
       isSentByMe: true,
-    ),
-    Message(
+    ), */
+    /*  Message(
+      text: '$completeService',
+      date: DateTime.now().subtract(const Duration(minutes: 5)),
+      isSentByMe: true,
+    ), */
+    /* Message(
       text: 'Hello TTUMBLE, I am requesting the delivery service',
       date: DateTime.now().subtract(const Duration(minutes: 6)),
       isSentByMe: true,
-    ),
+    ), */
   ].reversed.toList();
 
   @override
@@ -87,7 +118,7 @@ class _MainPageState extends State<ChatPage> {
             icon: Icon(Icons.arrow_back_ios, color: Colors.white),
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => /* DeliciousTodayPage */ TimePickerPage(),
+                builder: (context) => TimePickerPage(),
               ));
             },
           ),
@@ -104,15 +135,7 @@ class _MainPageState extends State<ChatPage> {
                 ));
               },
             ),
-            // add more IconButton
           ],
-          /* actions: [
-            Icon(
-              Icons.home_filled,
-              color: Colors.white,
-              size: 30,
-            ),
-          ], */
         ),
         body: Column(
           children: [

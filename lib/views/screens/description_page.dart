@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 import 'package:ttumble/views/screens/calendar_page.dart';
 import 'package:ttumble/views/screens/date_page.dart';
 import 'package:ttumble/views/utils/variables.dart';
-import '../chat_page.dart';
+import '../chat/chat_page.dart';
 import '../utils/AppColor.dart';
 import 'date_picker_page.dart';
 

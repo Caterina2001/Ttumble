@@ -9,6 +9,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ttumble/views/prueba.dart';
+import 'package:ttumble/views/utils/variables.dart';
 import 'package:ttumble/views/widgets/modals/login_modalprueba.dart';
 import 'package:ttumble/views/widgets/splash.dart';
 
@@ -405,6 +406,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   InkWell(
                       onTap: () {
+                        userServcie = ("${model.service![index].seNombre}");
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Splash(),
                         ));
@@ -486,6 +488,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   InkWell(
                       onTap: () {
+                        userServcie = ("${modell.servicee![index].seNombre}");
                         //Get.to(splash());
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Splash(),
@@ -495,7 +498,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Image.network("${modell.servicee![index].seImagen}"),
                           Text(
-                            " ${modell.servicee![index].seNombre}",
+                            "${modell.servicee![index].seNombre}",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 11.5, fontWeight: FontWeight.bold),
@@ -507,6 +510,7 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ));
+
     /* return */ /* GridView.builder(
       padding: EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
       shrinkWrap: true,
