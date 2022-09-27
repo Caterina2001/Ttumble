@@ -80,25 +80,17 @@ class _MainPageState extends State<ChatPage> {
 
   List<Message> messages = [
     Message(
-      text: 'Hello Caterina! Thanks for using TTUMBLE.',
+      text: 'Hello! Thanks for using TTUMBLE.',
       date: DateTime.now().subtract(const Duration(minutes: 2)),
       isSentByMe: false,
     ),
-    /* Message(
+    //esta burbuja de message deberia repetirse por cada
+    //elemento en ese textt
+    Message(
       text: '$textt',
       date: DateTime.now().subtract(const Duration(minutes: 5)),
       isSentByMe: true,
-    ), */
-    /*  Message(
-      text: '$completeService',
-      date: DateTime.now().subtract(const Duration(minutes: 5)),
-      isSentByMe: true,
-    ), */
-    /* Message(
-      text: 'Hello TTUMBLE, I am requesting the delivery service',
-      date: DateTime.now().subtract(const Duration(minutes: 6)),
-      isSentByMe: true,
-    ), */
+    ),
   ].reversed.toList();
 
   @override

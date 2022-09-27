@@ -24,6 +24,8 @@ class Splash extends StatefulWidget {
 
 late String finalEmail;
 late String finalName;
+/* late var obtainedName;
+ */
 late var obtainedEmail;
 
 class _SplashState extends State<Splash> {
@@ -52,14 +54,14 @@ class _SplashState extends State<Splash> {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     obtainedEmail = sharedPreferences.getString('usu_correo');
-    //var obtainedName = sharedPreferences.getString('usu_nombre');
+    obtainedName = sharedPreferences.getString('usu_nombre');
 
     setState(() {
       finalEmail = obtainedEmail!;
-      //finalName = obtainedName!;
+      finalName = obtainedName!;
     });
     print(obtainedEmail);
-    //print(finalName);
+    print(obtainedName);
   }
 
   @override

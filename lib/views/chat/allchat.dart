@@ -24,24 +24,26 @@ class Allchat extends StatelessWidget {
         var data = jsonDecode(response.body.toString());
 
         print(data);
-        data.forEach((element) => {print(element['ms_texto'])});
 
-        data.forEach((element) => {
+        data.forEach((element) => {print(element['ms_texto'])});
+        data.forEach((element) => {textt.add(element['ms_texto'])});
+
+        /* data.forEach((element) => {
               Message(
                   text: (element['ms_texto']),
                   date: DateTime.now(),
                   isSentByMe: true)
-            }); ////
+            }); //// */
 
         print('este es el valor de text que envio ' + textt.toString());
 
-        data.forEach((element) => {
+        /* data.forEach((element) => {
               Message(
                 text: element['ms_texto'],
                 date: DateTime.now().subtract(const Duration(minutes: 2)),
                 isSentByMe: true,
               )
-            });
+            }); */
 
         //textt = (data[0]['ms_texto']);
 

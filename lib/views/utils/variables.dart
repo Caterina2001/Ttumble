@@ -13,3 +13,4 @@ String dateFull = "";
 String completeService = "";
 String userIdChat = "";
 List textt = [];
+late var obtainedName;

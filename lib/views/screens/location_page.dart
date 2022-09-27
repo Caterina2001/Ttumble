@@ -98,7 +98,9 @@ class _Location extends State<Location_Page> {
                 ),
                 Center(
                   child: Text(
-                    "Hi $userName! now set the location of the service",
+                    "Hi " +
+                        '$obtainedName' +
+                        "! now set the location of the service",
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
