@@ -65,6 +65,8 @@ class LoginModal extends State<LoginModall> {
           userId = (data[0]['usu_id']);
           userName = (data[0]['usu_nombre']);
           userNivel = (data[0]['usu_nivel']);
+          userNumero = (data[0]['usu_numero']);
+          print(userNumero);
           print(userName);
           dat = userName.toString();
           // ignore: unused_local_variable
@@ -216,6 +218,7 @@ class LoginModal extends State<LoginModall> {
               final SharedPreferences sharedPreferences =
                   await SharedPreferences.getInstance();
               sharedPreferences.setString('usu_correo', userController.text);
+              sharedPreferences.setString('usu_numero', '$userNumero');
               //sharedPreferences.setString('usu_nombre', dat.toString());
               //sharedPreferences.setString('usu_id', userId);
 

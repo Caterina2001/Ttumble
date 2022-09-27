@@ -12,5 +12,8 @@ String userHour = "";
 String dateFull = "";
 String completeService = "";
 String userIdChat = "";
+String userNumero = "";
 List textt = [];
 late var obtainedName;
+late var obtainedEmail;
+late var obtainerNumero;
