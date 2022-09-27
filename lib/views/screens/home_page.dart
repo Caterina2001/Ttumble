@@ -92,6 +92,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: 80,
         //brightness: Brightness.dark,
         backgroundColor: AppColor.primary,

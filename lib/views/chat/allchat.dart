@@ -24,6 +24,7 @@ class Allchat extends StatelessWidget {
         var data = jsonDecode(response.body.toString());
 
         print(data);
+        print('klkpasaki');
 
         data.forEach((element) => {print(element['ms_texto'])});
         data.forEach((element) => {textt.add(element['ms_texto'])});
@@ -74,7 +75,7 @@ class Allchat extends StatelessWidget {
                       fontFamily: 'inter')),
               onPressed: () {
                 //print('one more time' + textt);
-                chatId('5');
+                chatId('$userIdChat');
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ChatPage(),
                 ));

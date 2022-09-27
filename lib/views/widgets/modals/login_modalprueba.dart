@@ -7,6 +7,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ttumble/main.dart';
+import 'package:ttumble/views/screens/auth/login_page.dart';
 import 'package:ttumble/views/screens/home_page.dart';
 import 'package:ttumble/views/screens/location_page.dart';
 import 'package:ttumble/views/utils/variables.dart';
@@ -58,6 +59,7 @@ class LoginModal extends State<LoginModall> {
           print('Usuario no encontrado, intente de nuevo');
           _showMyDialog();
         } else {
+          Get.to(MainPage());
           print(data);
 
           print(data[0]['usu_id']);
@@ -66,9 +68,14 @@ class LoginModal extends State<LoginModall> {
           userName = (data[0]['usu_nombre']);
           userNivel = (data[0]['usu_nivel']);
           userNumero = (data[0]['usu_numero']);
+          userToken = (data[0]['token']);
+          userNivel = (data[0]['usu_nivel']);
           print(userNumero);
           print(userName);
-          dat = userName.toString();
+          print(userToken);
+          print(userNivel);
+          //dat = userName.toString(); ultimo comment
+
           // ignore: unused_local_variable
 
           /*  Navigator.push(context,
@@ -218,11 +225,16 @@ class LoginModal extends State<LoginModall> {
               final SharedPreferences sharedPreferences =
                   await SharedPreferences.getInstance();
               sharedPreferences.setString('usu_correo', userController.text);
-              sharedPreferences.setString('usu_numero', '$userNumero');
+              sharedPreferences.setString(
+                  'usu_numero', '$userNumero'.toString());
+              sharedPreferences.setString('usu_nombre', '$userName'.toString());
+              sharedPreferences.setString('token', '$userToken'.toString());
+              sharedPreferences.setString('usu_nivel', '$userNivel'.toString());
+
               //sharedPreferences.setString('usu_nombre', dat.toString());
               //sharedPreferences.setString('usu_id', userId);
 
-              Get.to(MainPage());
+              /* Get.to(MainPage()); */
             },
             child: const Text('Log In Now',
                 style: TextStyle(
@@ -237,7 +249,6 @@ class LoginModal extends State<LoginModall> {
             ),
           ),
         ),
-        Text('data')
       ],
     );
   }
@@ -290,6 +301,7 @@ class LoginModal extends State<LoginModall> {
               ),
               onPressed: () {
                 Navigator.of(context).pop();
+                LoginPage();
               },
             ),
           ],

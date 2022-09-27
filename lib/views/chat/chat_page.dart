@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ttumble/views/utils/variables.dart';
 import '../../main.dart';
 import 'message.dart';
@@ -53,6 +54,8 @@ class _MainPageState extends State<ChatPage> {
 
         print(data);
 
+        print(userIdChat);
+
         data.forEach((element) => {textt = element['ms_texto']});
         data.forEach((element) => {print(element['ms_texto'])});
         print('este es el valor de text que envio ' + textt.toString());
@@ -86,6 +89,11 @@ class _MainPageState extends State<ChatPage> {
     ),
     //esta burbuja de message deberia repetirse por cada
     //elemento en ese textt
+    Message(
+      text: '$completeService',
+      date: DateTime.now().subtract(const Duration(minutes: 3)),
+      isSentByMe: true,
+    ),
     Message(
       text: '$textt',
       date: DateTime.now().subtract(const Duration(minutes: 5)),
@@ -121,7 +129,11 @@ class _MainPageState extends State<ChatPage> {
                 color: Colors.white,
                 size: 30,
               ),
-              onPressed: () {
+              onPressed: () async {
+                final SharedPreferences sharedPreferences =
+                    await SharedPreferences.getInstance();
+                sharedPreferences.setString('ch_id', '$userIdChat'.toString());
+
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => /* DeliciousTodayPage */ MainPage(),
                 ));

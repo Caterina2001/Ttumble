@@ -7,6 +7,7 @@ import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ttumble/main.dart';
+import 'package:ttumble/views/chat/chat_page.dart';
 import 'package:ttumble/views/screens/auth/login_page.dart';
 import 'package:ttumble/views/screens/home_page.dart';
 import 'package:ttumble/views/screens/location_page.dart';
@@ -15,24 +16,26 @@ import 'package:ttumble/views/utils/variables.dart';
 
 import '../screens/location.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({Key? key}) : super(key: key);
+class SplashChat extends StatefulWidget {
+  const SplashChat({Key? key}) : super(key: key);
 
   @override
-  State<Splash> createState() => _SplashState();
+  State<SplashChat> createState() => _SplashChatState();
 }
 
-late String finalEmail;
+/* late String finalEmail;
 late String finalName;
 late String finalNumero;
 late String finalToken;
 
-late String finalNivel;
+late String finalNivel; */
+
+late String finalChatId;
 
 /* late var obtainedName;
  */
 
-class _SplashState extends State<Splash> {
+class _SplashChatState extends State<SplashChat> {
   @override
   void initState() {
     getValidationData().whenComplete(() async {
@@ -41,7 +44,7 @@ class _SplashState extends State<Splash> {
           Duration(milliseconds: 2500),
           () => Get.to(obtainedEmail == null /* && finalName == null */
               ? LoginPage()
-              : Location_Page()));
+              : Chat()));
     });
     super.initState();
     //navigate();
@@ -57,25 +60,25 @@ class _SplashState extends State<Splash> {
   Future getValidationData() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
-    obtainedEmail = sharedPreferences.getString('usu_correo');
-    obtainedName = sharedPreferences.getString('usu_nombre');
+    obtainedChatId = sharedPreferences.getString('ch_id');
+    /* obtainedName = sharedPreferences.getString('usu_nombre');
     obtainerNumero = sharedPreferences.getString('usu_numero');
     obtainedToken = sharedPreferences.getString('token');
-    obtainedNivel = sharedPreferences.getString('usu_nivel');
+    obtainedNivel = sharedPreferences.getString('usu_nivel'); */
 
     setState(() {
-      finalEmail = obtainedEmail;
-      finalName = obtainedName;
+      finalChatId = obtainedChatId;
+      /* finalName = obtainedName;
       finalNumero = obtainerNumero;
       finalToken = obtainedToken;
-      finalNivel = obtainedNivel;
+      finalNivel = obtainedNivel; */
     });
     print('ahpra esot');
-    print(obtainedEmail);
-    print(obtainedName);
+    print(obtainedChatId);
+    /* print(obtainedName);
     print(obtainerNumero);
     print(obtainedToken);
-    print(obtainedNivel);
+    print(obtainedNivel); */
   }
 
   @override
@@ -85,7 +88,7 @@ class _SplashState extends State<Splash> {
         body: Container(
           child: Center(
             child: Text(
-              'SPLASH SCREEN WITH LOGO TTUMBLE HERE',
+              'SPLASH CHATTT WITH LOGO TTUMBLE HERE',
               style: TextStyle(color: Colors.white),
             ),
           ),

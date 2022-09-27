@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 bool showId = false;
+String userToken = "";
 String userId = "";
 String userNivel = "";
 String userServcie = ""; //new
@@ -17,3 +18,7 @@ List textt = [];
 late var obtainedName;
 late var obtainedEmail;
 late var obtainerNumero;
+late var obtainedToken;
+
+late var obtainedNivel;
+late var obtainedChatId;

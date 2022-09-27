@@ -15,6 +15,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: 80,
         brightness: Brightness.dark,
         backgroundColor: AppColor.primary,
@@ -115,7 +116,13 @@ class ProfilePage extends StatelessWidget {
                         await SharedPreferences.getInstance();
                     //sharedPreferences.remove('user');
                     sharedPreferences.remove('usu_correo');
-                    Get.to(MainPage());
+                    sharedPreferences.remove('usu_numero');
+                    sharedPreferences.remove('usu_nombre');
+                    //sharedPreferences.remove('usu_nombre');
+
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: ((context) => MainPage())));
+                    /* Get.to(MainPage()); */
                   },
                   child: const Text('Log Out',
                       style: TextStyle(

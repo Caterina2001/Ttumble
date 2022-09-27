@@ -100,6 +100,7 @@ class _Location extends State<Location_Page> {
                   child: Text(
                     "Hi " +
                         '$obtainedName' +
+                        '$obtainerNumero' +
                         "! now set the location of the service",
                     style: TextStyle(
                         fontSize: 20,

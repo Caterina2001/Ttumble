@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ttumble/main.dart';
 import 'package:ttumble/views/chat/chat_page.dart';
 import 'package:ttumble/views/screens/home_page.dart';
@@ -63,6 +64,10 @@ class _TimePickerPageState extends State<TimePickerPage> {
 
         print(data);
         userIdChat = (data[0]['ch_id']);
+        print(userIdChat);
+        final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setString('ch_id', '$userIdChat'.toString());
       } else {
         print('failed');
       }
@@ -171,7 +176,8 @@ class _TimePickerPageState extends State<TimePickerPage> {
                     dateFull = (userDate + ", " + userHour);
                     ticket(userId, locationFull, userDescription, dateFull);
                     chat(userId, userName, userServcie);
-                    chatId(5);
+/*                     chatId(5);
+ */
                     completeService = ("Hello Ttumble I need a " +
                         userServcie +
                         " service, My location is " +

@@ -8,6 +8,7 @@ import 'package:ttumble/models/core/ttumble2.dart';
 import 'package:ttumble/views/chat/allchat.dart';
 import 'package:ttumble/views/screens/auth/login_page.dart';
 import 'package:ttumble/views/widgets/modals/register_modal.dart';
+import 'package:ttumble/views/widgets/splash_chat.dart';
 
 import 'views/chat/chat_page.dart';
 import 'views/screens/cards_page.dart';
@@ -49,7 +50,8 @@ class _MainPageState extends State<MainPage> {
   final screens = [
     HomePage(),
     //Chat(),
-    Allchat(),
+    //Allchat(),
+    SplashChat(),
     CardsPage(),
     ProfilePage(),
   ];
