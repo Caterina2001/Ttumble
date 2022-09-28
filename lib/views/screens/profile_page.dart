@@ -118,6 +118,10 @@ class ProfilePage extends StatelessWidget {
                     sharedPreferences.remove('usu_correo');
                     sharedPreferences.remove('usu_numero');
                     sharedPreferences.remove('usu_nombre');
+                    sharedPreferences.remove('usu_id');
+                    sharedPreferences.remove('usu_nivel');
+                    sharedPreferences.remove('ch_id');
+
                     //sharedPreferences.remove('usu_nombre');
 
                     Navigator.push(context,

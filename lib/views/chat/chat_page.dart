@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ttumble/views/utils/variables.dart';
 import '../../main.dart';
+import 'first_message.dart';
 import 'message.dart';
 import '../screens/time_picker_page.dart';
 import '../utils/AppColor.dart';
@@ -42,7 +43,7 @@ class ChatPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<ChatPage> {
-  void chatId(String ch_id) async {
+  /* void chatId(String ch_id) async {
     try {
       Response response = await post(
           Uri.parse(
@@ -79,7 +80,7 @@ class _MainPageState extends State<ChatPage> {
     } catch (e) {
       print(e.toString());
     }
-  }
+  } */
 
   List<Message> messages = [
     Message(
@@ -133,6 +134,7 @@ class _MainPageState extends State<ChatPage> {
                 final SharedPreferences sharedPreferences =
                     await SharedPreferences.getInstance();
                 sharedPreferences.setString('ch_id', '$userIdChat'.toString());
+                print(['$textt']);
 
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => /* DeliciousTodayPage */ MainPage(),
@@ -186,6 +188,20 @@ class _MainPageState extends State<ChatPage> {
                 setState(() => messages.add(message));
               },
             ),
+
+            ///
+            ///
+            /* FirstMessage(
+              onSubmitted: (text) {
+                final message = Message(
+                  text: text,
+                  date: DateTime.now(),
+                  isSentByMe: true,
+                );
+
+                setState(() => messages.add(message));
+              },
+            ), */
           ],
         ),
       );

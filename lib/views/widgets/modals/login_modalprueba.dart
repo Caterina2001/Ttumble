@@ -59,9 +59,6 @@ class LoginModal extends State<LoginModall> {
           print('Usuario no encontrado, intente de nuevo');
           _showMyDialog();
         } else {
-          Get.to(MainPage());
-          print(data);
-
           print(data[0]['usu_id']);
           //okok = (data[0]['usu_id']);
           userId = (data[0]['usu_id']);
@@ -74,6 +71,18 @@ class LoginModal extends State<LoginModall> {
           print(userName);
           print(userToken);
           print(userNivel);
+          final SharedPreferences sharedPreferences =
+              await SharedPreferences.getInstance();
+          sharedPreferences.setString('usu_correo', userController.text);
+          sharedPreferences.setString('usu_numero', '$userNumero'.toString());
+          sharedPreferences.setString('usu_nombre', '$userName'.toString());
+          sharedPreferences.setString('token', '$userToken'.toString());
+          sharedPreferences.setString('usu_nivel', '$userNivel'.toString());
+          sharedPreferences.setString('usu_nivel', '$userNivel'.toString());
+          sharedPreferences.setString('usu_id', '$userId'.toString());
+          Get.to(MainPage());
+          print(data);
+
           //dat = userName.toString(); ultimo comment
 
           // ignore: unused_local_variable
@@ -222,7 +231,7 @@ class LoginModal extends State<LoginModall> {
               login(userController.text.toString(),
                   passController.text.toString());
 
-              final SharedPreferences sharedPreferences =
+              /* final SharedPreferences sharedPreferences =
                   await SharedPreferences.getInstance();
               sharedPreferences.setString('usu_correo', userController.text);
               sharedPreferences.setString(
@@ -230,6 +239,8 @@ class LoginModal extends State<LoginModall> {
               sharedPreferences.setString('usu_nombre', '$userName'.toString());
               sharedPreferences.setString('token', '$userToken'.toString());
               sharedPreferences.setString('usu_nivel', '$userNivel'.toString());
+              sharedPreferences.setString('usu_nivel', '$userNivel'.toString());
+              sharedPreferences.setString('usu_id', userId); */
 
               //sharedPreferences.setString('usu_nombre', dat.toString());
               //sharedPreferences.setString('usu_id', userId);

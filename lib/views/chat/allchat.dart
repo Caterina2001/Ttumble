@@ -15,6 +15,7 @@ import 'message.dart';
 class Allchat extends StatelessWidget {
   void chatId(String ch_id) async {
     try {
+      /////mequedeaui
       Response response = await post(
           Uri.parse(
               'https://en2gomas.com/api.tumble/controller/messageController.php?op=message-chat-id'),
@@ -24,6 +25,7 @@ class Allchat extends StatelessWidget {
         var data = jsonDecode(response.body.toString());
 
         print(data);
+        print(data[0]['ch_id']);
         print('klkpasaki');
 
         data.forEach((element) => {print(element['ms_texto'])});
@@ -57,6 +59,32 @@ class Allchat extends StatelessWidget {
     }
   }
 
+  void message(String texto, usu_id, usu_nivel, ch_id) async {
+    try {
+      Response response = await post(
+          Uri.parse(
+              'https://en2gomas.com/api.tumble/controller/messageController.php?op=Insert-message'),
+          body: {
+            'texto': texto,
+            'usu_id': usu_id,
+            'usu_nivel': usu_nivel,
+            'ch_id': ch_id
+          });
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+
+        print(data);
+        /*  String text = '$completeService';
+        message(text, '$obtainedId', '$obtainedNivel', '$obtainedChatId'); */
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +103,11 @@ class Allchat extends StatelessWidget {
                       fontFamily: 'inter')),
               onPressed: () {
                 //print('one more time' + textt);
-                chatId('$userIdChat');
+                chatId('$obtainedChatId');
+
+                print('id chat $obtainedChatId');
+                message('$completeService', '$obtainedId', '$obtainedNivel',
+                    '$obtainedChatId');
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ChatPage(),
                 ));

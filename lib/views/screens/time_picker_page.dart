@@ -5,9 +5,12 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ttumble/main.dart';
 import 'package:ttumble/views/chat/chat_page.dart';
+import 'package:ttumble/views/chat/message.dart';
 import 'package:ttumble/views/screens/home_page.dart';
 import 'package:ttumble/views/utils/variables.dart';
+import 'package:ttumble/views/widgets/splash_chat.dart';
 
+import '../chat/new_message_widget.dart';
 import '../utils/AppColor.dart';
 import '../utils/utilss.dart';
 import '../widgets/button_widget.dart';
@@ -76,7 +79,7 @@ class _TimePickerPageState extends State<TimePickerPage> {
     }
   }
 
-  void chatId(int ch_id) async {
+  void chatId(String ch_id) async {
     try {
       Response response = await post(
           Uri.parse(
@@ -87,6 +90,32 @@ class _TimePickerPageState extends State<TimePickerPage> {
         var data = jsonDecode(response.body.toString());
 
         print(data);
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void message(String texto, usu_id, usu_nivel, ch_id) async {
+    try {
+      Response response = await post(
+          Uri.parse(
+              'https://en2gomas.com/api.tumble/controller/messageController.php?op=Insert-message'),
+          body: {
+            'texto': texto,
+            'usu_id': usu_id,
+            'usu_nivel': usu_nivel,
+            'ch_id': ch_id
+          });
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+
+        print(data);
+        /*  String text = '$completeService';
+        message(text, '$obtainedId', '$obtainedNivel', '$obtainedChatId'); */
       } else {
         print('failed');
       }
@@ -176,8 +205,10 @@ class _TimePickerPageState extends State<TimePickerPage> {
                     dateFull = (userDate + ", " + userHour);
                     ticket(userId, locationFull, userDescription, dateFull);
                     chat(userId, userName, userServcie);
-/*                     chatId(5);
- */
+                    //SplashChat();
+
+                    //chatId('$obtainedChatId');
+
                     completeService = ("Hello Ttumble I need a " +
                         userServcie +
                         " service, My location is " +
@@ -187,9 +218,12 @@ class _TimePickerPageState extends State<TimePickerPage> {
                         " ,In date: " +
                         dateFull);
 
+                    /*  message(completeService, '$obtainedId', '$obtainedNivel',
+                        '$obtainedChatId'); */
+
                     Navigator.pop(context);
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Chat(),
+                      builder: (context) => /* ChatPage */ SplashChat(),
                     ));
                   },
                 ),

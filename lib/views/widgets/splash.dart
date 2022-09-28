@@ -28,6 +28,7 @@ late String finalNumero;
 late String finalToken;
 
 late String finalNivel;
+late String finalId;
 
 /* late var obtainedName;
  */
@@ -62,6 +63,7 @@ class _SplashState extends State<Splash> {
     obtainerNumero = sharedPreferences.getString('usu_numero');
     obtainedToken = sharedPreferences.getString('token');
     obtainedNivel = sharedPreferences.getString('usu_nivel');
+    obtainedId = sharedPreferences.getString('usu_id');
 
     setState(() {
       finalEmail = obtainedEmail;
@@ -69,6 +71,7 @@ class _SplashState extends State<Splash> {
       finalNumero = obtainerNumero;
       finalToken = obtainedToken;
       finalNivel = obtainedNivel;
+      finalId = obtainedId;
     });
     print('ahpra esot');
     print(obtainedEmail);
@@ -76,6 +79,7 @@ class _SplashState extends State<Splash> {
     print(obtainerNumero);
     print(obtainedToken);
     print(obtainedNivel);
+    print(obtainedId);
   }
 
   @override

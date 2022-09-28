@@ -22,3 +22,4 @@ late var obtainedToken;
 
 late var obtainedNivel;
 late var obtainedChatId;
+late var obtainedId;

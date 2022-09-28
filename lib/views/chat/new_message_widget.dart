@@ -83,7 +83,8 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
 
                 ///
                 String text = messagecontroller.text;
-                message(text, userId, userNivel, userIdChat);
+                message(
+                    text, '$obtainedId', '$obtainedNivel', '$obtainedChatId');
 
                 ///
 
