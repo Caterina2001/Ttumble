@@ -105,6 +105,9 @@ void ticket(String userId) async {
       data.forEach((element) => {listTicket.add(element['tk_service_name'])});
       data.forEach(
           (elementt) => {descriptionTicket.add(elementt['tk_description'])});
+      data.forEach((elementt) => {statusTicket.add(elementt['tk_state'])});
+      data.forEach((elementt) => {locationTicket.add(elementt['tk_location'])});
+
       print('eeeEEEE');
       print(descriptionTicket);
       print(listTicket);

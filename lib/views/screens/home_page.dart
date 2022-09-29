@@ -407,7 +407,8 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   InkWell(
                       onTap: () {
-                        userServcie = ("${model.service![index].seNombre}");
+                        userService =
+                            ("${model.service![index].seNombre}".toString());
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Splash(),
                         ));
@@ -489,7 +490,8 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   InkWell(
                       onTap: () {
-                        userServcie = ("${modell.servicee![index].seNombre}");
+                        userService =
+                            ("${modell.servicee![index].seNombre}".toString());
                         //Get.to(splash());
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Splash(),

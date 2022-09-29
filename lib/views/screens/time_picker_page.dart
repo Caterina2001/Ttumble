@@ -26,13 +26,14 @@ class TimePickerPage extends StatefulWidget {
 }
 
 class _TimePickerPageState extends State<TimePickerPage> {
-  void ticket(String userId, location, description, date) async {
+  void ticket(String userId, service, location, description, date) async {
     try {
       Response response = await post(
           Uri.parse(
               'https://en2gomas.com/api.tumble/controller/ticketController.php?op=Insert'),
           body: {
             'userId': userId,
+            'service': service,
             'location': location,
             'description': description,
             'date': date
@@ -203,14 +204,15 @@ class _TimePickerPageState extends State<TimePickerPage> {
                     print(userHour);
                     print('okook');
                     dateFull = (userDate + ", " + userHour);
-                    ticket(userId, locationFull, userDescription, dateFull);
-                    chat(userId, userName, userServcie);
+                    ticket(userId, '$userService', locationFull,
+                        userDescription, dateFull);
+                    chat(userId, userName, userService);
                     //SplashChat();
 
                     //chatId('$obtainedChatId');
 
                     completeService = ("Hello Ttumble I need a " +
-                        userServcie +
+                        userService +
                         " service, My location is " +
                         locationFull +
                         ", Description: " +

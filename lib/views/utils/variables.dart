@@ -4,7 +4,7 @@ bool showId = false;
 String userToken = "";
 String userId = "";
 String userNivel = "";
-String userServcie = ""; //new
+String userService = ""; //new
 String userName = "";
 String locationFull = "";
 String userDescription = "";
@@ -26,3 +26,5 @@ late var obtainedId;
 
 List listTicket = [];
 List descriptionTicket = [];
+List statusTicket = [];
+List locationTicket = [];
