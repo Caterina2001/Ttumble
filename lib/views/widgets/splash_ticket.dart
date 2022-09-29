@@ -77,6 +77,51 @@ class _SplashState extends State<SplashTicket> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/back_.png'),
+                    fit: BoxFit.cover)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: CircularProgressIndicator(
+                            strokeWidth: 6.0,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                AppColor.primary)),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  /*  Widget build(BuildContext context) {
+    return Scaffold(
         backgroundColor: AppColor.primary,
         body: Container(
           child: Center(
@@ -86,7 +131,7 @@ class _SplashState extends State<SplashTicket> {
             ),
           ),
         ));
-  }
+  } */
 }
 
 void ticket(String userId) async {

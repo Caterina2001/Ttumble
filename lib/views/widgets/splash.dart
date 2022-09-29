@@ -85,31 +85,59 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColor.primary,
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/back_.png'),
+                    fit: BoxFit.cover)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: CircularProgressIndicator(
+                            strokeWidth: 6.0,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                AppColor.primary)),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+/* Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.transparent,
         body: Container(
           child: Center(
             child: Text(
               'SPLASH SCREEN WITH LOGO TTUMBLE HERE',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.red),
             ),
           ),
         ));
-  }
-}
-
-/* Future<void> splash() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  var obtainedEmail = sharedPreferences.getString('usu_correo');
-  runApp(MaterialApp(
-    home: obtainedEmail == null ? LoginPage() : Location(),
-  )); */
-/* var obtainedName = sharedPreferences.getString('usu_nombre');
-
-  setState(() {
-    finalEmail = obtainedEmail!;
-    finalName = obtainedName!;
-  });  */
-/* print(obtainedEmail);
-  print(finalName);
-}*/
+  } */
