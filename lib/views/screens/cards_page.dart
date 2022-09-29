@@ -1,4 +1,4 @@
-import 'package:expansion_card/expansion_card.dart';
+/* import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
 import '../utils/AppColor.dart';
 
@@ -151,5 +151,49 @@ class CardsPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+ */
+
+import 'package:expansion_card/expansion_card.dart';
+import 'package:flutter/material.dart';
+import 'package:ttumble/views/utils/variables.dart';
+import '../utils/AppColor.dart';
+
+List text = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+class CardsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 80,
+          brightness: Brightness.dark,
+          backgroundColor: AppColor.primary,
+          elevation: 0,
+          centerTitle: true,
+          title: Text('TTumble',
+              style: TextStyle(
+                  fontFamily: 'Ang',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 30)),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: List.generate(descriptionTicket.length, (index) {
+              return Text(
+                listTicket[index].toString() +
+                    descriptionTicket[index].toString(),
+                style: const TextStyle(fontSize: 22),
+              );
+            }),
+          ),
+        ));
   }
 }

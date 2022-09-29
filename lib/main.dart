@@ -9,6 +9,7 @@ import 'package:ttumble/views/chat/allchat.dart';
 import 'package:ttumble/views/screens/auth/login_page.dart';
 import 'package:ttumble/views/widgets/modals/register_modal.dart';
 import 'package:ttumble/views/widgets/splash_chat.dart';
+import 'package:ttumble/views/widgets/splash_ticket.dart';
 
 import 'views/chat/chat_page.dart';
 import 'views/screens/cards_page.dart';
@@ -52,7 +53,8 @@ class _MainPageState extends State<MainPage> {
     //Chat(),
     //Allchat(),
     SplashChat(),
-    CardsPage(),
+    SplashTicket(),
+    //CardsPage(),
     ProfilePage(),
   ];
 
