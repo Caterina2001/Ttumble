@@ -36,37 +36,34 @@ late String finalId;
 
 /* late var obtainedName;
  */
+var items = {'tk_service_name': []};
+var listTickett = {'tk_service_name': []};
 
 class _SplashState extends State<SplashTicket> {
   @override
   void initState() {
+    listTicket = [];
+    descriptionTicket = [];
     getValidationData().whenComplete(() async {
       Timer(
           // ignore: unnecessary_null_comparison
-          Duration(milliseconds: 2500),
-          () => Get.to(obtainedEmail == null /* && finalName == null */
-              ? LoginPage()
-              : CardsPage()));
+          Duration(milliseconds: 2000),
+          () => Get.to(obtainedId == null ? LoginPage() : CardsPage()));
     });
     super.initState();
-    //navigate();
-    //getValidationData();
   }
-
-  /* navigate() async {
-    await Future.delayed(Duration(milliseconds: 1500), () {});
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Location()));
-  } */
 
   Future getValidationData() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
 
     obtainedId = sharedPreferences.getString('usu_id');
+    //
+
     ticket(obtainedId);
 
     setState(() {
+      listTickett = {'tk_service_name': []};
       finalId = obtainedId;
     });
     print('ahpra esto id ticket');
@@ -135,6 +132,7 @@ class _SplashState extends State<SplashTicket> {
 }
 
 void ticket(String userId) async {
+  //listTicket = List.empty();
   try {
     Response response = await post(
         Uri.parse(
@@ -147,7 +145,12 @@ void ticket(String userId) async {
       print(data);
       data.forEach((element) => {print(element['tk_service_name'])});
       print('aa');
+
       data.forEach((element) => {listTicket.add(element['tk_service_name'])});
+
+      /* data.forEach((element) =>
+          {listTickett['tk_service_name']?.addAll(element['tk_service_name'])}); */
+
       data.forEach(
           (elementt) => {descriptionTicket.add(elementt['tk_description'])});
       data.forEach((elementt) => {statusTicket.add(elementt['tk_state'])});
@@ -181,6 +184,7 @@ void ticket(String userId) async {
         /*  Get.to(MainPage()); */
         print(data);
       } */
+
     } else {
       print('failed');
     }

@@ -14,6 +14,7 @@ import 'message.dart';
 
 class Allchat extends StatelessWidget {
   void chatId(String ch_id) async {
+    //textt = [];
     try {
       /////mequedeaui
       Response response = await post(
@@ -27,6 +28,7 @@ class Allchat extends StatelessWidget {
         print(data);
         print(data[0]['ch_id']);
         print('klkpasaki');
+        textt = [];
 
         data.forEach((element) => {print(element['ms_texto'])});
         data.forEach((element) => {textt.add(element['ms_texto'])});
@@ -75,6 +77,7 @@ class Allchat extends StatelessWidget {
         var data = jsonDecode(response.body.toString());
 
         print(data);
+        print('a vcer');
         /*  String text = '$completeService';
         message(text, '$obtainedId', '$obtainedNivel', '$obtainedChatId'); */
       } else {
@@ -103,11 +106,12 @@ class Allchat extends StatelessWidget {
                       fontFamily: 'inter')),
               onPressed: () {
                 //print('one more time' + textt);
+
                 chatId('$obtainedChatId');
 
                 print('id chat $obtainedChatId');
-                message('$completeService', '$obtainedId', '$obtainedNivel',
-                    '$obtainedChatId');
+                /* message('$completeService', '$obtainedId', '$obtainedNivel',
+                    '$obtainedChatId'); */
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ChatPage(),
                 ));

@@ -118,9 +118,7 @@ class _MainPageState extends State<ChatPage> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios, color: Colors.white),
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => TimePickerPage(),
-              ));
+              Navigator.of(context).pop();
             },
           ),
           actions: [
@@ -143,6 +141,46 @@ class _MainPageState extends State<ChatPage> {
             ),
           ],
         ),
+        /*  body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.only(left: 10, right: 10, top: 24),
+          child: Column(
+            children: List.generate(messages.length, (index) {
+              return Padding(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: GroupedListView<Message, DateTime>(
+                    padding: const EdgeInsets.all(8),
+                    reverse: true,
+                    order: GroupedListOrder.DESC,
+                    useStickyGroupSeparators: true,
+                    floatingHeader: true,
+                    elements: messages,
+                    groupBy: (message) => DateTime(
+                      message.date.year,
+                      message.date.month,
+                      message.date.day,
+                    ),
+                    groupHeaderBuilder: (Message message) => SizedBox(
+                      height: 40,
+                      child: Center(
+                        child: Card(
+                          color: Colors.black,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              DateFormat.yMMMd().format(message.date),
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    itemBuilder: (context, Message message) =>
+                        MessageBubble(message: message),
+                  ));
+            }),
+          ), */
+
         body: Column(
           children: [
             Expanded(

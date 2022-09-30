@@ -40,30 +40,20 @@ late String finalToken;
 late String finalNivel;
 late String finalId;
 
-/* late var obtainedName;
- */
-
 class _SplashChatState extends State<SplashChat> {
   @override
   void initState() {
+    //textt = [];
     getValidationData().whenComplete(() async {
       Timer(
           // ignore: unnecessary_null_comparison
           Duration(milliseconds: 2500),
-          () => Get.to(obtainedChatId == null /* && finalName == null */
-              ? LoginPage()
-              : Allchat()));
+          () => Get.to(obtainedChatId == null ? LoginPage() : Allchat()));
     });
     super.initState();
     //navigate();
     //getValidationData();
   }
-
-  /* navigate() async {
-    await Future.delayed(Duration(milliseconds: 1500), () {});
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Location()));
-  } */
 
   Future getValidationData() async {
     final SharedPreferences sharedPreferences =
@@ -75,10 +65,6 @@ class _SplashChatState extends State<SplashChat> {
     obtainedToken = sharedPreferences.getString('token');
     obtainedNivel = sharedPreferences.getString('usu_nivel');
     obtainedId = sharedPreferences.getString('usu_id');
-    /* obtainedName = sharedPreferences.getString('usu_nombre');
-    obtainerNumero = sharedPreferences.getString('usu_numero');
-    obtainedToken = sharedPreferences.getString('token');
-    obtainedNivel = sharedPreferences.getString('usu_nivel'); */
 
     setState(() {
       finalChatId = obtainedChatId;
@@ -88,10 +74,6 @@ class _SplashChatState extends State<SplashChat> {
       finalToken = obtainedToken;
       finalNivel = obtainedNivel;
       finalId = obtainedId;
-      /* finalName = obtainedName;
-      finalNumero = obtainerNumero;
-      finalToken = obtainedToken;
-      finalNivel = obtainedNivel; */
     });
     print('el id del chat aqui');
     print(obtainedChatId);
@@ -102,10 +84,6 @@ class _SplashChatState extends State<SplashChat> {
     print(obtainedToken);
     print(obtainedNivel);
     print(obtainedId);
-    /* print(obtainedName);
-    print(obtainerNumero);
-    print(obtainedToken);
-    print(obtainedNivel); */
   }
 
   @override
@@ -154,33 +132,4 @@ class _SplashChatState extends State<SplashChat> {
       ),
     );
   }
-  /*  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: AppColor.primary,
-        body: Container(
-          child: Center(
-            child: Text(
-              'SPLASH CHATTT WITH LOGO TTUMBLE HERE',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ));
-  } */
 }
-
-/* Future<void> splash() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  var obtainedEmail = sharedPreferences.getString('usu_correo');
-  runApp(MaterialApp(
-    home: obtainedEmail == null ? LoginPage() : Location(),
-  )); */
-/* var obtainedName = sharedPreferences.getString('usu_nombre');
-
-  setState(() {
-    finalEmail = obtainedEmail!;
-    finalName = obtainedName!;
-  });  */
-/* print(obtainedEmail);
-  print(finalName);
-}*/
