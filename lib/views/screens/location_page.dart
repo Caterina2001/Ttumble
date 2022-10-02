@@ -32,9 +32,15 @@ class MyPrueba extends StatelessWidget {
       );
 }
 
+final formKey = GlobalKey<FormState>();
+
 class Location_Page extends StatefulWidget {
+  const Location_Page({key});
   @override
-  _Location createState() => _Location();
+  State<Location_Page> createState() {
+    return _Location();
+  }
+  //_Location createState() => _Location();
 }
 
 class _Location extends State<Location_Page> {
@@ -69,25 +75,26 @@ class _Location extends State<Location_Page> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 80,
-          brightness: Brightness.dark,
-          backgroundColor: AppColor.primary,
-          elevation: 0,
-          centerTitle: true,
-          title: Text('TTumble',
-              style: TextStyle(
-                  fontFamily: 'Ang',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30)),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
+      appBar: AppBar(
+        toolbarHeight: 80,
+        brightness: Brightness.dark,
+        backgroundColor: AppColor.primary,
+        elevation: 0,
+        centerTitle: true,
+        title: Text('TTumble',
+            style: TextStyle(
+                fontFamily: 'Ang', fontWeight: FontWeight.w700, fontSize: 30)),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
-        body: ListView(children: [
+      ),
+      body: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: formKey,
+        child: ListView(children: [
           Material(
             color: Colors.white,
             child: Column(
@@ -255,7 +262,7 @@ class _Location extends State<Location_Page> {
                                       Container(
                                           margin: EdgeInsets.only(top: 16),
                                           padding: EdgeInsets.all(1.0),
-                                          child: TextField(
+                                          child: TextFormField(
                                             controller: city,
                                             cursorColor: AppColor.primary,
                                             decoration: InputDecoration(
@@ -283,8 +290,20 @@ class _Location extends State<Location_Page> {
                                       Container(
                                         margin: EdgeInsets.only(top: 16),
                                         padding: EdgeInsets.all(1.0),
-                                        child: TextField(
+                                        child: TextFormField(
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Noo';
+                                            } else {
+                                              return null;
+                                            }
+                                          },
                                           controller: zipcode,
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: <TextInputFormatter>[
+                                            FilteringTextInputFormatter
+                                                .digitsOnly
+                                          ],
                                           cursorColor: AppColor.primary,
                                           decoration: InputDecoration(
                                               hintText: 'ZipCode',
@@ -330,21 +349,26 @@ class _Location extends State<Location_Page> {
             padding: const EdgeInsets.only(top: 40),
             child: TextButton(
               onPressed: () {
-                locationFull = zipcode.text.toString() +
-                    " " +
-                    value.toString() +
-                    ", " +
-                    (city.text.toString() +
-                        " " +
-                        street.text.toString() +
-                        " " +
-                        apartment.text.toString());
-                print(locationFull);
+                final isValidForm = formKey.currentState!.validate();
+                if (isValidForm) {
+                  /* Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => LoginModall()));  */
+                  locationFull = zipcode.text.toString() +
+                      " " +
+                      value.toString() +
+                      ", " +
+                      (city.text.toString() +
+                          " " +
+                          street.text.toString() +
+                          " " +
+                          apartment.text.toString());
+                  print(locationFull);
 
-                //loc('$userId', locationFull);
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Description(),
-                ));
+                  //loc('$userId', locationFull);
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Description(),
+                  ));
+                }
               },
               child: Text('NEXT'),
               style: TextButton.styleFrom(
@@ -357,7 +381,7 @@ class _Location extends State<Location_Page> {
             ),
           ),
         ]),
-      );
+      ));
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         value: item,

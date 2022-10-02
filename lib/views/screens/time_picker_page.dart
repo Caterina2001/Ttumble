@@ -89,6 +89,9 @@ class _TimePickerPageState extends State<TimePickerPage> {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body.toString());
+        final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setString('ch_id', '$userIdChat'.toString());
 
         print(data);
       } else {
@@ -197,7 +200,7 @@ class _TimePickerPageState extends State<TimePickerPage> {
                 onClicked: () => Utilss.showSheet(
                   context,
                   child: buildTimePicker(),
-                  onClicked: () {
+                  onClicked: () async {
                     final value = DateFormat('HH:mm').format(dateTime);
                     Utilss.showSnackBar(context, 'Hour Selected $value');
                     userHour = value;
@@ -207,6 +210,10 @@ class _TimePickerPageState extends State<TimePickerPage> {
                     ticket(userId, '$userService', locationFull,
                         userDescription, dateFull);
                     chat(userId, userName, userService);
+                    final SharedPreferences sharedPreferences =
+                        await SharedPreferences.getInstance();
+                    sharedPreferences.setString(
+                        'ch_id', '$userIdChat'.toString());
                     //SplashChat();
 
                     //chatId('$obtainedChatId');

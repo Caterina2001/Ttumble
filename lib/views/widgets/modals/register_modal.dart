@@ -146,37 +146,53 @@ class MyRegisterModall extends State<RegisterModall> {
             FilteringTextInputFormatter.digitsOnly
           ],
           decoration: InputDecoration(
-              isDense: true,
-              hintText: 'Enter Number',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  width: 0,
-                  style: BorderStyle.none,
-                ),
+            isDense: true,
+            hintText: 'Enter Number',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                width: 0,
+                style: BorderStyle.none,
               ),
+            ),
 
-              /* InputBorder.none, */
-              fillColor: Colors.grey[200],
-              filled: true),
+            /* InputBorder.none, */
+            fillColor: Colors.grey[200],
+            filled: true,
+          ),
         ),
         Padding(padding: EdgeInsets.only(bottom: 20)),
         TextFormField(
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Enter a Name';
+            } else {
+              return null;
+            }
+          },
           controller: fullnameController,
           decoration: InputDecoration(
-              isDense: true,
-              hintText: 'Enter Full Name',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  width: 0,
-                  style: BorderStyle.none,
-                ),
+            isDense: true,
+            hintText: 'Enter Full Name',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                width: 0,
+                style: BorderStyle.none,
               ),
+            ),
 
-              /* InputBorder.none, */
-              fillColor: Colors.grey[200],
-              filled: true),
+            /* InputBorder.none, */
+            fillColor: Colors.grey[200],
+            filled: true,
+          ),
+          /*  validator: (value) {
+            if (value != null && value.length < 7) {
+              return 'Enter min 7 caracter';
+            } else {
+              return null;
+            }
+          }, */
         ),
         Padding(padding: EdgeInsets.only(bottom: 20)),
         TextFormField(
