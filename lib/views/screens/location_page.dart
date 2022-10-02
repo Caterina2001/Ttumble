@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:ttumble/views/screens/calendar_page.dart';
 import 'package:ttumble/views/screens/description_page.dart';
+import 'package:ttumble/views/screens/home_page.dart';
 import 'package:ttumble/views/utils/AppColor.dart';
 import 'package:ttumble/views/utils/variables.dart';
 import 'package:ttumble/views/widgets/custom_text_field.dart';
@@ -32,8 +33,6 @@ class MyPrueba extends StatelessWidget {
       );
 }
 
-final formKey = GlobalKey<FormState>();
-
 class Location_Page extends StatefulWidget {
   const Location_Page({key});
   @override
@@ -44,6 +43,7 @@ class Location_Page extends StatefulWidget {
 }
 
 class _Location extends State<Location_Page> {
+  final formKey = GlobalKey<FormState>();
   final TextEditingController userLocation = TextEditingController();
   final TextEditingController okokok = TextEditingController();
   final TextEditingController city = TextEditingController();
@@ -75,104 +75,113 @@ class _Location extends State<Location_Page> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 80,
-        brightness: Brightness.dark,
-        backgroundColor: AppColor.primary,
-        elevation: 0,
-        centerTitle: true,
-        title: Text('TTumble',
-            style: TextStyle(
-                fontFamily: 'Ang', fontWeight: FontWeight.w700, fontSize: 30)),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+        appBar: AppBar(
+          toolbarHeight: 80,
+          brightness: Brightness.dark,
+          backgroundColor: AppColor.primary,
+          elevation: 0,
+          centerTitle: true,
+          title: Text('TTumble',
+              style: TextStyle(
+                  fontFamily: 'Ang',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 30)),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
         ),
-      ),
-      body: Form(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        key: formKey,
-        child: ListView(children: [
-          Material(
-            color: Colors.white,
-            child: Column(
-              children: <Widget>[
-                Image.asset(
-                  'assets/images/loc.png',
-                  height: 110,
-                ),
-                Center(
-                  child: Text(
-                    "Hi " +
-                        '$obtainedName' +
-                        '$obtainerNumero' +
-                        "! now set the location of the service",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: AppColor.primary),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SafeArea(
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 18.0, vertical: 20.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColor.primary /* .withOpacity(0.40) */,
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: Form(
-                          /* key: _formKey, */
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 0,
-                              ),
-                              SizedBox(
-                                height: 3.7,
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 1),
+        body: Builder(
+            builder: (context) => Center(
+                  child: ListView(children: [
+                    Material(
+                      color: Colors.white,
+                      child: Column(
+                        children: <Widget>[
+                          Image.asset(
+                            'assets/images/loc.png',
+                            height: 110,
+                          ),
+                          Center(
+                            child: Text(
+                              "Hi " +
+                                  /* '$obtainedName' +
+                        '$obtainerNumero' + */
+                                  "! now set the location of the service",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.primary),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          SafeArea(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 18.0, vertical: 20.0),
+                              child: Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                  border:
-                                      Border.all(color: Colors.white, width: 4),
+                                  color:
+                                      AppColor.primary /* .withOpacity(0.40) */,
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButton<String>(
-                                    hint: Container(
-                                      width: 150, //and here
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                  child: Form(
+                                    key: formKey,
+                                    /* key: _formKey, */
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 0,
+                                        ),
+                                        SizedBox(
+                                          height: 3.7,
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(top: 20),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 12, vertical: 1),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            border: Border.all(
+                                                color: Colors.white, width: 4),
+                                          ),
+                                          child: DropdownButtonHideUnderline(
+                                            child: DropdownButton<String>(
+                                              hint: Container(
+                                                width: 150, //and here
 
-                                      child: Text(
-                                        "Select State",
-                                        style: TextStyle(
-                                            color: Colors.grey[700],
-                                            fontSize: 16),
-                                      ),
-                                    ),
-                                    value: value,
-                                    iconSize: 36,
-                                    icon: Icon(Icons.arrow_drop_down,
-                                        color: Colors.black),
-                                    isExpanded: true,
-                                    items: items.map(buildMenuItem).toList(),
-                                    onChanged: (value) =>
-                                        setState(() => this.value = value!),
-                                  ),
-                                ),
-                              ),
-                              /*  SizedBox(
+                                                child: Text(
+                                                  "Select State",
+                                                  style: TextStyle(
+                                                      color: Colors.grey[700],
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                              value: value,
+                                              iconSize: 36,
+                                              icon: Icon(Icons.arrow_drop_down,
+                                                  color: Colors.black),
+                                              isExpanded: true,
+                                              items: items
+                                                  .map(buildMenuItem)
+                                                  .toList(),
+                                              onChanged: (value) => setState(
+                                                  () => this.value = value!),
+                                            ),
+                                          ),
+                                        ),
+                                        /*  SizedBox(
                                 height: 0,
                               ),
                                 SizedBox(
@@ -186,202 +195,281 @@ class _Location extends State<Location_Page> {
                                   controller: Street,
                                     title: '', hint: 'Street Adress'),
                               ), */
-                              SizedBox(
-                                height: 0,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 3.7,
-                                      ),
-                                      Container(
-                                          margin: EdgeInsets.only(top: 16),
-                                          padding: EdgeInsets.all(1.0),
-                                          child: TextField(
-                                            controller: street,
-                                            cursorColor: AppColor.primary,
-                                            decoration: InputDecoration(
-                                                hintText: 'Street Adress',
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  borderSide: BorderSide(
-                                                    width: 0,
-                                                    style: BorderStyle.none,
-                                                  ),
-                                                ),
-                                                fillColor: Colors.white,
-                                                filled: true),
-                                          )),
-                                    ],
-                                  )),
-                                  VerticalDivider(),
-                                  Expanded(
-                                      child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 3.7,
-                                      ),
-                                      Container(
-                                          margin: EdgeInsets.only(top: 16),
-                                          padding: EdgeInsets.all(1.0),
-                                          child: TextField(
-                                            controller: apartment,
-                                            cursorColor: AppColor.primary,
-                                            decoration: InputDecoration(
-                                                hintText: 'Apartment #',
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  borderSide: BorderSide(
-                                                    width: 0,
-                                                    style: BorderStyle.none,
-                                                  ),
-                                                ),
-                                                fillColor: Colors.white,
-                                                filled: true),
-                                          )),
-                                    ],
-                                  ))
-                                ],
-                              ),
-                              SizedBox(
-                                height: 0,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 3.7,
-                                      ),
-                                      Container(
-                                          margin: EdgeInsets.only(top: 16),
-                                          padding: EdgeInsets.all(1.0),
-                                          child: TextFormField(
-                                            controller: city,
-                                            cursorColor: AppColor.primary,
-                                            decoration: InputDecoration(
-                                                hintText: 'City',
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  borderSide: BorderSide(
-                                                    width: 0,
-                                                    style: BorderStyle.none,
-                                                  ),
-                                                ),
-                                                fillColor: Colors.white,
-                                                filled: true),
-                                          )),
-                                    ],
-                                  )),
-                                  VerticalDivider(),
-                                  Expanded(
-                                      child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 3.7,
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 16),
-                                        padding: EdgeInsets.all(1.0),
-                                        child: TextFormField(
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Noo';
-                                            } else {
-                                              return null;
-                                            }
-                                          },
-                                          controller: zipcode,
-                                          keyboardType: TextInputType.number,
-                                          inputFormatters: <TextInputFormatter>[
-                                            FilteringTextInputFormatter
-                                                .digitsOnly
-                                          ],
-                                          cursorColor: AppColor.primary,
-                                          decoration: InputDecoration(
-                                              hintText: 'ZipCode',
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                borderSide: BorderSide(
-                                                  width: 0,
-                                                  style: BorderStyle.none,
-                                                ),
-                                              ),
-                                              fillColor: Colors.white,
-                                              filled: true),
+                                        SizedBox(
+                                          height: 0,
                                         ),
-                                      ),
-                                    ],
-                                  ))
-                                ],
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 3.7,
+                                                ),
+                                                Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 16),
+                                                    padding:
+                                                        EdgeInsets.all(1.0),
+                                                    child: TextFormField(
+                                                      validator: (value) {
+                                                        if (value!.isEmpty) {
+                                                          return 'Enter some text';
+                                                        }
+                                                        return null;
+                                                      },
+                                                      controller: street,
+                                                      cursorColor:
+                                                          AppColor.primary,
+                                                      decoration:
+                                                          InputDecoration(
+                                                              errorStyle: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 12),
+                                                              hintText:
+                                                                  'Street Adress',
+                                                              border:
+                                                                  OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  width: 0,
+                                                                  style:
+                                                                      BorderStyle
+                                                                          .none,
+                                                                ),
+                                                              ),
+                                                              fillColor:
+                                                                  Colors.white,
+                                                              filled: true),
+                                                    )),
+                                              ],
+                                            )),
+                                            VerticalDivider(),
+                                            Expanded(
+                                                child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 3.7,
+                                                ),
+                                                Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 16),
+                                                    padding:
+                                                        EdgeInsets.all(1.0),
+                                                    child: TextFormField(
+                                                      validator: (value) {
+                                                        if (value!.isEmpty) {
+                                                          return 'Enter some text';
+                                                        }
+                                                        return null;
+                                                      },
+                                                      controller: apartment,
+                                                      cursorColor:
+                                                          AppColor.primary,
+                                                      decoration:
+                                                          InputDecoration(
+                                                              errorStyle: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 12),
+                                                              hintText:
+                                                                  'Apartment #',
+                                                              border:
+                                                                  OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  width: 0,
+                                                                  style:
+                                                                      BorderStyle
+                                                                          .none,
+                                                                ),
+                                                              ),
+                                                              fillColor:
+                                                                  Colors.white,
+                                                              filled: true),
+                                                    )),
+                                              ],
+                                            ))
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 0,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 3.7,
+                                                ),
+                                                Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 16),
+                                                    padding:
+                                                        EdgeInsets.all(1.0),
+                                                    child: TextFormField(
+                                                      validator: (value) {
+                                                        if (value!.isEmpty) {
+                                                          return 'Enter some text';
+                                                        }
+                                                        return null;
+                                                      },
+                                                      controller: city,
+                                                      cursorColor:
+                                                          AppColor.primary,
+                                                      decoration:
+                                                          InputDecoration(
+                                                              errorStyle: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 12),
+                                                              hintText: 'City',
+                                                              border:
+                                                                  OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  width: 0,
+                                                                  style:
+                                                                      BorderStyle
+                                                                          .none,
+                                                                ),
+                                                              ),
+                                                              fillColor:
+                                                                  Colors.white,
+                                                              filled: true),
+                                                    )),
+                                              ],
+                                            )),
+                                            VerticalDivider(),
+                                            Expanded(
+                                                child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 3.7,
+                                                ),
+                                                Container(
+                                                  margin:
+                                                      EdgeInsets.only(top: 16),
+                                                  padding: EdgeInsets.all(1.0),
+                                                  child: TextFormField(
+                                                    validator: (value) {
+                                                      if (value != null &&
+                                                          value.length < 5) {
+                                                        return 'Enter a correct Code';
+                                                      } else {
+                                                        return null;
+                                                      }
+                                                    },
+                                                    controller: zipcode,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: <
+                                                        TextInputFormatter>[
+                                                      FilteringTextInputFormatter
+                                                          .digitsOnly
+                                                    ],
+                                                    cursorColor:
+                                                        AppColor.primary,
+                                                    decoration: InputDecoration(
+                                                        errorStyle: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12),
+                                                        hintText: 'ZipCode',
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          borderSide:
+                                                              BorderSide(
+                                                            width: 0,
+                                                            style: BorderStyle
+                                                                .none,
+                                                          ),
+                                                        ),
+                                                        fillColor: Colors.white,
+                                                        filled: true),
+                                                  ),
+                                                ),
+                                              ],
+                                            ))
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 16,
+                                        ),
+                                        SizedBox(
+                                          height: 16,
+                                        ),
+                                        SizedBox(
+                                          height: 0,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              SizedBox(
-                                height: 0,
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 24, right: 24),
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
-            padding: const EdgeInsets.only(top: 40),
-            child: TextButton(
-              onPressed: () {
-                final isValidForm = formKey.currentState!.validate();
-                if (isValidForm) {
-                  /* Navigator.of(context).push(
+                    Container(
+                      margin: EdgeInsets.only(left: 24, right: 24),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50)),
+                      padding: const EdgeInsets.only(top: 40),
+                      child: TextButton(
+                        onPressed: () {
+                          final isValidForm = formKey.currentState!.validate();
+                          if (isValidForm) {
+                            /* Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => LoginModall()));  */
-                  locationFull = zipcode.text.toString() +
-                      " " +
-                      value.toString() +
-                      ", " +
-                      (city.text.toString() +
-                          " " +
-                          street.text.toString() +
-                          " " +
-                          apartment.text.toString());
-                  print(locationFull);
+                            locationFull = zipcode.text.toString() +
+                                " " +
+                                value.toString() +
+                                ", " +
+                                (city.text.toString() +
+                                    " " +
+                                    street.text.toString() +
+                                    " " +
+                                    apartment.text.toString());
+                            print(locationFull);
 
-                  //loc('$userId', locationFull);
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Description(),
-                  ));
-                }
-              },
-              child: Text('NEXT'),
-              style: TextButton.styleFrom(
-                  backgroundColor: AppColor.primary,
-                  primary: Colors.white,
-                  textStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 30,
-                      fontFamily: 'Ang')),
-            ),
-          ),
-        ]),
-      ));
+                            //loc('$userId', locationFull);
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => Description(),
+                            ));
+                          }
+                        },
+                        child: Text('NEXT'),
+                        style: TextButton.styleFrom(
+                            backgroundColor: AppColor.primary,
+                            primary: Colors.white,
+                            textStyle: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 30,
+                                fontFamily: 'Ang')),
+                      ),
+                    ),
+                  ]),
+                )),
+      );
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         value: item,

@@ -186,6 +186,13 @@ class LoginModal extends State<LoginModall> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         TextFormField(
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Enter Mail';
+            } else {
+              return null;
+            }
+          },
           controller: userController,
           decoration: InputDecoration(
               hintText: 'Enter email',
@@ -203,6 +210,13 @@ class LoginModal extends State<LoginModall> {
         ),
         Padding(padding: EdgeInsets.only(bottom: 20)),
         TextFormField(
+          validator: (value) {
+            if (value != null && value.length < 7) {
+              return 'Enter min 7 caracter';
+            } else {
+              return null;
+            }
+          },
           //onSaved: (input) => logIn.pass = input!,
           obscureText: true,
           controller: passController,
@@ -227,25 +241,12 @@ class LoginModal extends State<LoginModall> {
           height: 60,
           child: ElevatedButton(
             onPressed: () async {
+              final isValidForm = formKey.currentState!.validate();
+              if (isValidForm) {
+                login(userController.text.toString(),
+                    passController.text.toString());
+              }
               //le agregue el async aqui, ver si login bien igual
-              login(userController.text.toString(),
-                  passController.text.toString());
-
-              /* final SharedPreferences sharedPreferences =
-                  await SharedPreferences.getInstance();
-              sharedPreferences.setString('usu_correo', userController.text);
-              sharedPreferences.setString(
-                  'usu_numero', '$userNumero'.toString());
-              sharedPreferences.setString('usu_nombre', '$userName'.toString());
-              sharedPreferences.setString('token', '$userToken'.toString());
-              sharedPreferences.setString('usu_nivel', '$userNivel'.toString());
-              sharedPreferences.setString('usu_nivel', '$userNivel'.toString());
-              sharedPreferences.setString('usu_id', userId); */
-
-              //sharedPreferences.setString('usu_nombre', dat.toString());
-              //sharedPreferences.setString('usu_id', userId);
-
-              /* Get.to(MainPage()); */
             },
             child: const Text('Log In Now',
                 style: TextStyle(
