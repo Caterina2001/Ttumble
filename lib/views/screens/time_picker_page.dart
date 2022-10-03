@@ -30,7 +30,7 @@ class _TimePickerPageState extends State<TimePickerPage> {
     try {
       Response response = await post(
           Uri.parse(
-              'https://en2gomas.com/api.tumble/controller/ticketController.php?op=Insert'),
+              'http://testapi.exitoresponsable.com/controller/ticketController.php?op=Insert'),
           body: {
             'userId': userId,
             'service': service,
@@ -44,7 +44,7 @@ class _TimePickerPageState extends State<TimePickerPage> {
 
         print(data);
       } else {
-        print('failed');
+        print('failed4');
       }
     } catch (e) {
       print(e.toString());
@@ -56,7 +56,7 @@ class _TimePickerPageState extends State<TimePickerPage> {
     try {
       Response response = await post(
           Uri.parse(
-              'https://en2gomas.com/api.tumble/controller/chatController.php?op=Insert'),
+              'http://testapi.exitoresponsable.com/controller/chatController.php?op=Insert'),
           body: {
             'userId': userId,
             'fullname': fullname,
@@ -67,13 +67,14 @@ class _TimePickerPageState extends State<TimePickerPage> {
         var data = jsonDecode(response.body.toString());
 
         print(data);
+        print('vamos a ver el id del chat desde time picker');
         userIdChat = (data[0]['ch_id']);
         print(userIdChat);
         final SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
         sharedPreferences.setString('ch_id', '$userIdChat'.toString());
       } else {
-        print('failed');
+        print('failed3');
       }
     } catch (e) {
       print(e.toString());
@@ -84,7 +85,7 @@ class _TimePickerPageState extends State<TimePickerPage> {
     try {
       Response response = await post(
           Uri.parse(
-              'https://en2gomas.com/api.tumble/controller/messageController.php?op=message-chat-id'),
+              'http://testapi.exitoresponsable.com/controller/messageController.php?op=message-chat-id'),
           body: {'ch_id': ch_id});
 
       if (response.statusCode == 200) {
@@ -95,7 +96,7 @@ class _TimePickerPageState extends State<TimePickerPage> {
 
         print(data);
       } else {
-        print('failed');
+        print('failed2');
       }
     } catch (e) {
       print(e.toString());
@@ -106,7 +107,7 @@ class _TimePickerPageState extends State<TimePickerPage> {
     try {
       Response response = await post(
           Uri.parse(
-              'https://en2gomas.com/api.tumble/controller/messageController.php?op=Insert-message'),
+              'http://testapi.exitoresponsable.com/controller/messageController.php?op=Insert-message'),
           body: {
             'texto': texto,
             'usu_id': usu_id,
@@ -121,7 +122,7 @@ class _TimePickerPageState extends State<TimePickerPage> {
         /*  String text = '$completeService';
         message(text, '$obtainedId', '$obtainedNivel', '$obtainedChatId'); */
       } else {
-        print('failed');
+        print('failed1');
       }
     } catch (e) {
       print(e.toString());

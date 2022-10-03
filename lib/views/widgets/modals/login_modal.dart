@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import '../../screens/location.dart';
 import '../../utils/AppColor.dart';
 import '../custom_text_field.dart';
@@ -113,3 +113,4 @@ class LoginModal extends StatelessWidget {
     );
   }
 }
+ */

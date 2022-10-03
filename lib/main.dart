@@ -54,8 +54,7 @@ class _MainPageState extends State<MainPage> {
     //Chat(),
     //Allchat(),
     SplashChat(),
-    //SplashTicket(), este es el que va quitar location page
-    Location_Page(),
+    SplashTicket(),
     //CardsPage(),
     ProfilePage(),
   ];

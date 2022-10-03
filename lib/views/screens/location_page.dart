@@ -55,7 +55,7 @@ class _Location extends State<Location_Page> {
     try {
       Response response = await post(
           Uri.parse(
-              'https://en2gomas.com/api.tumble/controller/ticketController.php?op=Insert'),
+              'http://testapi.exitoresponsable.com/controller/ticketController.php?op=Insert'),
           body: {'userId': userId, 'location': location});
 
       if (response.statusCode == 200) {
