@@ -48,7 +48,7 @@ class _SplashChatState extends State<SplashChat> {
       Timer(
           // ignore: unnecessary_null_comparison
           Duration(milliseconds: 2500),
-          () => Get.to(obtainedChatId == null ? LoginPage() : Allchat()));
+          () => Get.to(obtainedEmail == null ? LoginPage() : Allchat()));
     });
     super.initState();
     //navigate();
@@ -75,7 +75,7 @@ class _SplashChatState extends State<SplashChat> {
       finalNivel = obtainedNivel;
       finalId = obtainedId;
     });
-    print('el id del chat aqui');
+    print('email:' + obtainedEmail);
     print(obtainedChatId);
 
     print(obtainedEmail);

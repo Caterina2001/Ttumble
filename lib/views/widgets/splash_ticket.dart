@@ -136,7 +136,7 @@ void ticket(String userId) async {
   try {
     Response response = await post(
         Uri.parse(
-            'https://en2gomas.com/api.tumble/controller/ticketController.php?op=userTicket'),
+            'http://tumble.growmediard.com/controller/ticketController.php?op=userTicket'),
         body: {'userId': userId});
 
     if (response.statusCode == 200) {

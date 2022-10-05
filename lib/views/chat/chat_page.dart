@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
+import 'package:footer/footer.dart';
+import 'package:footer/footer_view.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
@@ -64,55 +66,105 @@ class _MainPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 80,
-        brightness: Brightness.dark,
-        backgroundColor: AppColor.primary,
-        elevation: 0,
-        centerTitle: true,
-        title: Text('TTumble',
-            style: TextStyle(
-                fontFamily: 'Ang', fontWeight: FontWeight.w700, fontSize: 30)),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.home,
-              color: Colors.white,
-              size: 30,
-            ),
-            onPressed: () async {
-              final SharedPreferences sharedPreferences =
-                  await SharedPreferences.getInstance();
-              sharedPreferences.setString('ch_id', '$userIdChat'.toString());
-              print(['$textt']);
-
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => /* DeliciousTodayPage */ MainPage(),
-              ));
+        appBar: AppBar(
+          toolbarHeight: 80,
+          brightness: Brightness.dark,
+          backgroundColor: AppColor.primary,
+          elevation: 0,
+          centerTitle: true,
+          title: Text('TTumble',
+              style: TextStyle(
+                  fontFamily: 'Ang',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 30)),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).pop();
             },
           ),
-        ],
-      ),
-      /* body: SingleChildScrollView(
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.home,
+                color: Colors.white,
+                size: 30,
+              ),
+              onPressed: () async {
+                final SharedPreferences sharedPreferences =
+                    await SharedPreferences.getInstance();
+                sharedPreferences.setString('ch_id', '$userIdChat'.toString());
+                print(['$textt']);
+
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => /* DeliciousTodayPage */ MainPage(),
+                ));
+              },
+            ),
+          ],
+        ),
+        /* body: SingleChildScrollView(
         child: 
         
       ) */
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 10, right: 10, top: 24),
-              child: Column(
-                children: List.generate(textt.length, (index) {
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: 10.0),
-                    child: ExpansionCard(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 5, right: 5, top: 24),
+                child: Column(
+                  children: List.generate(textt.length, (index) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                          constraints: const BoxConstraints(
+                              minHeight: 30, minWidth: 100),
+                          child: Card(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            semanticContainer: true,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                    bottomLeft: Radius.circular(10))),
+                            elevation: 0,
+                            color: AppColor.primary,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(5),
+                                ),
+                                Text(
+                                  textt[index].toString(),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(
+                                    5,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      /* child: Center(
+                        child: Card(
+                          elevation: 0,
+                          color: Colors.orange,
+                          child: const SizedBox(
+                              width: 300, height: 100, child: Text('yesyes')),
+                        ),
+                      ) */
+
+                      /* child: 
+                    ExpansionCard(
                       borderRadius: 20,
                       background: Image.asset(
                         "assets/images/orange.jpg",
@@ -125,39 +177,39 @@ class _MainPageState extends State<ChatPage> {
                             Text(
                               textt[index].toString(),
                               style: TextStyle(
-                                  fontSize: 30,
-                                  color: Colors.white,
-                                  fontFamily: 'Ang'),
-                            ),
-                            Text(
-                              "In process to Confirm",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      children: <Widget>[
-                        Container(
-                            margin: EdgeInsets.only(
-                              left: 10,
-                              right: 10,
-                              top: 24,
-                            ),
-                            child: Center(
-                              child: Text(textt[index].toString(),
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  )),
-                            ))
-                      ],
-                    ),
-                  );
-                }),
+                    ), */
+                    );
+                  }),
+                ),
               ),
-            ),
-            /*  Expanded(
+              /*  Container(
+              child: FooterView(
+                footer: new Footer(child: Text('data')),
+                children: [],
+              ),
+            ) */
+
+              /* Container(
+              child: SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('data')
+                    //footer widgets,
+                  ],
+                ),
+              ),
+            ) */
+
+              /*  Expanded(
               child: GroupedListView<Message, DateTime>(
                 padding: const EdgeInsets.all(8),
                 reverse: true,
@@ -189,7 +241,17 @@ class _MainPageState extends State<ChatPage> {
                     MessageBubble(message: message),
               ),
             ), */
-          ],
+            ],
+          ),
         ),
-      ));
+        persistentFooterButtons: const [
+          TextField(
+            autofocus: true,
+            decoration: InputDecoration(
+                border: InputBorder.none, hintText: 'Put your message'),
+          ),
+          Icon(Icons.send),
+          SizedBox(width: 10),
+        ],
+      );
 }

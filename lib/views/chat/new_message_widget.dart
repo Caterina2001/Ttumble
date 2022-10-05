@@ -25,7 +25,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
     try {
       Response response = await post(
           Uri.parse(
-              'https://en2gomas.com/api.tumble/controller/messageController.php?op=Insert-message'),
+              'http://tumble.growmediard.com/controller/messageController.php?op=Insert-message'),
           body: {
             'texto': texto,
             'usu_id': usu_id,

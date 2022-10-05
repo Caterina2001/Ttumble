@@ -26,7 +26,7 @@ class ApiProvider {
   //var client = http.Client();
 
   String _uri =
-      ('http://testapi.exitoresponsable.com/controller/serviceController.php?op=AllService');
+      ('http://tumble.growmediard.com//controller/serviceController.php?op=AllService');
   Future<ServiceModel> fetchCovidList() async {
     /* try {
       Response response = await dio.get(_uri);
@@ -50,7 +50,7 @@ class ApiProvider1 {
   //var client = http.Client();
 
   String _uri =
-      ('http://testapi.exitoresponsable.com/controller/serviceController.php?op=SpecialService');
+      ('http://tumble.growmediard.com//controller/serviceController.php?op=SpecialService');
   Future<SpecialServiceModel> fetchCovidList1() async {
     /* try {
       Response response = await dio.get(_uri);
