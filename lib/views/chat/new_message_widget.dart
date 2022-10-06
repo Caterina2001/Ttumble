@@ -6,6 +6,7 @@ import 'package:ttumble/views/prueba.dart';
 
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:ttumble/views/utils/AppColor.dart';
 import 'package:ttumble/views/utils/variables.dart';
 
 class NewMessageWidget extends StatefulWidget {
@@ -75,7 +76,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
             ),
             MaterialButton(
               shape: const CircleBorder(),
-              color: Theme.of(context).colorScheme.primary,
+              color: AppColor.primary,
               onPressed: () {
                 if (messagecontroller.text.trim().isEmpty) return;
 
@@ -97,7 +98,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
             ),
             MaterialButton(
               shape: const CircleBorder(),
-              color: Theme.of(context).colorScheme.primary,
+              color: AppColor.primary,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => Prueba(),
