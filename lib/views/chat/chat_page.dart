@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:expansion_card/expansion_card.dart';
@@ -8,6 +9,7 @@ import 'package:grouped_list/grouped_list.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ttumble/views/chat/allchat.dart';
 import 'package:ttumble/views/utils/variables.dart';
 import '../../main.dart';
 import 'first_message.dart';
@@ -16,6 +18,8 @@ import '../screens/time_picker_page.dart';
 import '../utils/AppColor.dart';
 import 'message_bubble_widget.dart';
 import 'new_message_widget.dart';
+
+//Timer timer;
 
 class Chat extends StatelessWidget {
   @override
@@ -45,8 +49,28 @@ class ChatPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
+String frasee = "folleto";
+
 class _MainPageState extends State<ChatPage> {
+  late Timer _timer;
+
   @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+        setState(() {
+          _createFloating();
+          /* print('first');
+          Allchat(); */
+        });
+      });
+    });
+    /*  timer =
+        Timer.periodic(Duration(seconds: 1), (Timer t) => _createFloating()); */
+  }
+
   Widget build(BuildContext context) => Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
@@ -55,7 +79,7 @@ class _MainPageState extends State<ChatPage> {
           backgroundColor: AppColor.primary,
           elevation: 0,
           centerTitle: true,
-          title: Text('TTumble',
+          title: Text('TTUMBLE',
               style: TextStyle(
                   fontFamily: 'Ang',
                   fontWeight: FontWeight.w700,
@@ -87,77 +111,6 @@ class _MainPageState extends State<ChatPage> {
           ],
         ),
         body: _createFloating(),
-        /* body: SingleChildScrollView(
-          reverse: true,
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 5, right: 5, top: 24),
-                child: Column(
-                  children: List.generate(
-                    textt.length,
-                    (index) {
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 10.0),
-                        child: Align(
-                          alignment: Alignment.topRight,
-                          child: Container(
-                            constraints: const BoxConstraints(
-                                minHeight: 30, minWidth: 100),
-                            child: Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              semanticContainer: true,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10),
-                                      bottomLeft: Radius.circular(10))),
-                              elevation: 0,
-                              color: AppColor.primary,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(5),
-                                  ),
-                                  Text(
-                                    textt[index].toString(),
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(
-                                      5,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ), */
-        /* bottomNavigationBar: BottomAppBar(
-          child: NewMessageWidget(
-            onSubmitted: (text) {
-              final message = Message(
-                text: text,
-                date: DateTime.now(),
-                isSentByMe: true,
-              );
-
-              //setState(() => messages.add(message));
-            },
-          ),
-        ), okokok*/
       );
 }
 
@@ -167,6 +120,7 @@ Widget _createFloating() {
         reverse: true,
         child: Column(
           children: [
+            Text('TUTMBLE DOK'),
             Container(
               margin: EdgeInsets.only(left: 5, right: 5, top: 24),
               child: Column(
