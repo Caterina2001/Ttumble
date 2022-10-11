@@ -78,7 +78,8 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
 
         print(data);
         print(data[0]['ch_id']);
-        print('klkpasaki');
+        print('$userIdChat');
+        print('klkpasakiiii');
         textt = [];
 
         data.forEach((element) => {print(element['ms_texto'])});

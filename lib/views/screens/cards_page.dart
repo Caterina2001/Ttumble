@@ -78,46 +78,49 @@ class CardsPage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return ExpansionCard(
-                    borderRadius: 20,
-                    background: Image.asset(
-                      "assets/images/green.jpg",
-                      fit: BoxFit.cover,
-                    ),
-                    title: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            listTicket[index].toString(),
-                            style: TextStyle(
-                                fontSize: 30,
-                                color: Colors.white,
-                                fontFamily: 'Ang'),
-                          ),
-                          Text(
-                            "Service completed",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                    children: <Widget>[
-                      Container(
-                          margin: EdgeInsets.only(
-                            left: 10,
-                            right: 10,
-                            top: 24,
-                          ),
-                          child: Center(
-                            child: Text(descriptionTicket[index].toString(),
+                  return Padding(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: ExpansionCard(
+                        borderRadius: 20,
+                        background: Image.asset(
+                          "assets/images/green.jpg",
+                          fit: BoxFit.cover,
+                        ),
+                        title: Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                listTicket[index].toString(),
                                 style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                )),
-                          ))
-                    ],
-                  );
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                    fontFamily: 'Ang'),
+                              ),
+                              Text(
+                                "Service completed",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                        children: <Widget>[
+                          Container(
+                              margin: EdgeInsets.only(
+                                left: 10,
+                                right: 10,
+                                top: 24,
+                              ),
+                              child: Center(
+                                child: Text(descriptionTicket[index].toString(),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    )),
+                              ))
+                        ],
+                      ));
                 }
               }),
             ),

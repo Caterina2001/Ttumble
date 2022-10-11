@@ -117,18 +117,6 @@ class _SplashState extends State<SplashTicket> {
       ),
     );
   }
-  /*  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: AppColor.primary,
-        body: Container(
-          child: Center(
-            child: Text(
-              'SPLASH tickettt WITH LOGO TTUMBLE HERE',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ));
-  } */
 }
 
 void ticket(String userId) async {
@@ -160,30 +148,8 @@ void ticket(String userId) async {
       print(descriptionTicket);
       print(listTicket);
       print('b');
-      /*  print('$yes');
-      listTicket.forEach((value) {
-        print(value);
-      }); */
-
-      //print(data[0]['tk_service_name']);
 
       print(data[0]['usu_id']); //
-      /* if (data == 'No encontrado') {
-        print('Usuario no encontrado, intente de nuevo');
-      } else {
-        print(data[0]['usu_id']);
-        //okok = (data[0]['usu_id']);
-        userId = (data[0]['usu_id']);
-        print('ticket id es>>>>>');
-        print(userId);
-
-        final SharedPreferences sharedPreferences =
-            await SharedPreferences.getInstance();
-
-        sharedPreferences.setString('usu_id', '$userId'.toString());
-        /*  Get.to(MainPage()); */
-        print(data);
-      } */
 
     } else {
       print('failed');

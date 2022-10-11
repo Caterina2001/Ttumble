@@ -27,10 +27,12 @@ class Allchat extends StatelessWidget {
 
         print(data);
         print(data[0]['ch_id']);
-        print('klkpasaki');
+        print('ver que pasa $userIdChat');
+
+        print('klkpasaki all chat');
         textt = [];
 
-        data.forEach((element) => {print(element['ms_texto'])});
+        //data.forEach((element) => {print(element['ms_texto'])}); esto imprime todo por separado
         data.forEach((element) => {textt.add(element['ms_texto'])});
 
         /* data.forEach((element) => {

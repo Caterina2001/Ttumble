@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ttumble/main.dart';
 import 'package:ttumble/views/chat/allchat.dart';
@@ -66,6 +68,8 @@ class _SplashChatState extends State<SplashChat> {
     obtainedNivel = sharedPreferences.getString('usu_nivel');
     obtainedId = sharedPreferences.getString('usu_id');
 
+    chatId('$obtainedChatId');
+
     setState(() {
       finalChatId = obtainedChatId;
       finalEmail = obtainedEmail;
@@ -76,7 +80,7 @@ class _SplashChatState extends State<SplashChat> {
       finalId = obtainedId;
     });
     print('email:' + obtainedEmail);
-    print(obtainedChatId);
+    print('id guardado' + '$userIdChat');
 
     print(obtainedEmail);
     print(obtainedName);
@@ -131,5 +135,55 @@ class _SplashChatState extends State<SplashChat> {
         ],
       ),
     );
+  }
+}
+
+void chatId(String ch_id) async {
+  //textt = [];
+  try {
+    /////mequedeaui
+    Response response = await post(
+        Uri.parse(
+            'http://tumble.growmediard.com/controller/messageController.php?op=message-chat-id'),
+        body: {'ch_id': ch_id});
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body.toString());
+
+      print(data);
+      print(data[0]['ch_id']);
+      print('ver que pasa $userIdChat');
+
+      print('klkpasaki splash chat');
+      textt = [];
+
+      //data.forEach((element) => {print(element['ms_texto'])}); esto imprime todo por separado
+      data.forEach((element) => {textt.add(element['ms_texto'])});
+
+      /* data.forEach((element) => {
+              Message(
+                  text: (element['ms_texto']),
+                  date: DateTime.now(),
+                  isSentByMe: true)
+            }); //// */
+
+      print('este es el valor de text que envio ' + textt.toString());
+
+      /* data.forEach((element) => {
+              Message(
+                text: element['ms_texto'],
+                date: DateTime.now().subtract(const Duration(minutes: 2)),
+                isSentByMe: true,
+              )
+            }); */
+
+      //textt = (data[0]['ms_texto']);
+
+      //print(data[0]['ms_texto']);
+    } else {
+      print('failed');
+    }
+  } catch (e) {
+    print(e.toString());
   }
 }

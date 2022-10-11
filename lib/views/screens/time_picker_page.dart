@@ -67,9 +67,11 @@ class _TimePickerPageState extends State<TimePickerPage> {
         var data = jsonDecode(response.body.toString());
 
         print(data);
+        print(data[0]['ch_id']);
         print('vamos a ver el id del chat desde time picker');
         userIdChat = (data[0]['ch_id']);
-        print(userIdChat);
+        print('aqui ahora' + userIdChat);
+        print('aqui ahora obtained' + obtainedChatId);
         final SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
         sharedPreferences.setString('ch_id', '$userIdChat'.toString());
@@ -95,6 +97,7 @@ class _TimePickerPageState extends State<TimePickerPage> {
         sharedPreferences.setString('ch_id', '$userIdChat'.toString());
 
         print(data);
+        print('estoestoesto');
       } else {
         print('failed2');
       }
@@ -119,8 +122,12 @@ class _TimePickerPageState extends State<TimePickerPage> {
         var data = jsonDecode(response.body.toString());
 
         print(data);
+        print('esta en metodo message');
         /*  String text = '$completeService';
         message(text, '$obtainedId', '$obtainedNivel', '$obtainedChatId'); */
+        final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setString('ch_id', '$userIdChat'.toString());
       } else {
         print('failed1');
       }
@@ -208,16 +215,17 @@ class _TimePickerPageState extends State<TimePickerPage> {
                     print(userHour);
                     print('okook');
                     dateFull = (userDate + ", " + userHour);
-                    ticket(userId, '$userService', locationFull,
+                    ticket('$obtainedId', '$userService', locationFull,
                         userDescription, dateFull);
-                    chat(userId, userName, userService);
+                    chat('$obtainedId', '$obtainedName', userService);
                     final SharedPreferences sharedPreferences =
                         await SharedPreferences.getInstance();
                     sharedPreferences.setString(
                         'ch_id', '$userIdChat'.toString());
+
                     //SplashChat();
 
-                    //chatId('$obtainedChatId');
+                    //chatId('$userIdChat/* obtainedChatId */');
 
                     completeService = ("Hello Ttumble I need a " +
                         userService +
@@ -227,9 +235,27 @@ class _TimePickerPageState extends State<TimePickerPage> {
                         userDescription +
                         " ,In date: " +
                         dateFull);
+                    /* print('vamos a ver el id obtain  y ahora el useridchat' +
+                        '$userIdChat'); */
+                    /* while(userIdChat.isEmpty){
 
-                    /*  message(completeService, '$obtainedId', '$obtainedNivel',
-                        '$obtainedChatId'); */
+                        } */
+                    print('veamos el valor del user id chat' +
+                        userIdChat +
+                        'ecco');
+                    message(completeService, '$obtainedId', '$obtainedNivel',
+                        '$userIdChat');
+
+                    /* if (userIdChat.isNotEmpty) {
+                      message(completeService, '$obtainedId', '$obtainedNivel',
+                          userIdChat);
+                      print('non capisco');
+                    } else {
+                      print('vuoto qui');
+                    } */
+
+                    /* message(completeService, '$obtainedId', '$obtainedNivel',
+                        '$userIdChat' /* '$obtainedChatId */); */
 
                     Navigator.pop(context);
                     Navigator.of(context).push(MaterialPageRoute(
