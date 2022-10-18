@@ -52,15 +52,12 @@ class LoginModal extends State<LoginModall> {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body.toString());
-        /* print(data);
 
-        print(data[0]['usu_id']);  */ //
         if (data == 'No encontrado') {
           print('Usuario no encontrado, intente de nuevo');
           _showMyDialog();
         } else {
           print(data[0]['usu_id']);
-          //okok = (data[0]['usu_id']);
           userId = (data[0]['usu_id']);
           userName = (data[0]['usu_nombre']);
           userNivel = (data[0]['usu_nivel']);
@@ -71,6 +68,7 @@ class LoginModal extends State<LoginModall> {
           print(userName);
           print(userToken);
           print(userNivel);
+          print(userId);
           final SharedPreferences sharedPreferences =
               await SharedPreferences.getInstance();
           sharedPreferences.setString('usu_correo', userController.text);
@@ -246,7 +244,6 @@ class LoginModal extends State<LoginModall> {
                 login(userController.text.toString(),
                     passController.text.toString());
               }
-              //le agregue el async aqui, ver si login bien igual
             },
             child: const Text('Log In Now',
                 style: TextStyle(

@@ -15,17 +15,16 @@ import 'package:ttumble/views/screens/location_page.dart';
 import 'package:ttumble/views/screens/cards_page_admin.dart';
 import 'package:ttumble/views/utils/AppColor.dart';
 import 'package:ttumble/views/utils/variables.dart';
-import 'package:ttumble/views/widgets/splash_ticket2.dart';
 
 import '../screens/cards_page.dart';
 import '../screens/description_page.dart';
 import '../screens/location.dart';
 
-class SplashTicket extends StatefulWidget {
-  const SplashTicket({Key? key}) : super(key: key);
+class SplashTicket2 extends StatefulWidget {
+  const SplashTicket2({Key? key}) : super(key: key);
 
   @override
-  State<SplashTicket> createState() => _SplashState();
+  State<SplashTicket2> createState() => _SplashState();
 }
 
 late String finalEmail;
@@ -41,16 +40,48 @@ late String finalId;
 var items = {'tk_service_name': []};
 var listTickett = {'tk_service_name': []};
 
-class _SplashState extends State<SplashTicket> {
+class _SplashState extends State<SplashTicket2> {
   @override
   void initState() {
     listTicket = [];
     descriptionTicket = [];
     getValidationData().whenComplete(() async {
-      Timer(Duration(milliseconds: 1000),
-          () => Get.to(obtainedId == null ? LoginPage() : SplashTicket2()));
-    });
+      /* Timer(Duration(milliseconds: 2000),
+          () => Get.to(obtainedId == null ? LoginPage() : CardsPage())); */
+      Timer(
+          Duration(milliseconds: 1000),
+          () => Get.to(
+              obtainedNivel == 'Cliente' ? CardsPage() : CardsPageAdmin()));
 
+      /* if (obtainedId == null) {
+        Timer(Duration(milliseconds: 2000), () => Get.to(LoginPage()));
+      } else {
+        if (obtainedNivel == 'Admin') {
+          Timer(Duration(milliseconds: 2000),
+              () => Get.to(obtainedId == null ? LoginPage() : Veamos()));
+        }
+        if (obtainedNivel == 'Cliente') {
+          print('es cliente');
+          Timer(Duration(milliseconds: 2000),
+              () => Get.to(obtainedId == null ? LoginPage() : CardsPage()));
+        }
+      } */
+    });
+    /*  getValidationData().whenComplete(() async {
+      Timer(
+          // ignore: unnecessary_null_comparison
+          Duration(milliseconds: 2000),
+          () => Get.to(obtainedId == null ? LoginPage() : CardsPage()));
+
+          if(obtainedNivel == 'Admin'){
+           
+
+          }
+          if(obtainedNivel == 'Cliente'){
+            
+
+          }
+    }); */
     super.initState();
   }
 
@@ -59,6 +90,7 @@ class _SplashState extends State<SplashTicket> {
         await SharedPreferences.getInstance();
 
     obtainedId = sharedPreferences.getString('usu_id');
+    obtainedNivel = sharedPreferences.getString('usu_nivel');
     //
 
     ticket(obtainedId);
@@ -66,10 +98,13 @@ class _SplashState extends State<SplashTicket> {
     setState(() {
       listTickett = {'tk_service_name': []};
       finalId = obtainedId;
+      finalNivel = obtainedNivel;
     });
     print('ahpra esto id ticket');
 
     print(obtainedId);
+    print('nivel obtenido');
+    print(obtainedNivel);
   }
 
   @override

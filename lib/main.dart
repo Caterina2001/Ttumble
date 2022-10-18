@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:ttumble/apitest.dart';
 import 'package:ttumble/models/core/ttumble.dart';
 import 'package:ttumble/models/core/ttumble2.dart';
 import 'package:ttumble/views/chat/allchat.dart';
@@ -12,6 +13,7 @@ import 'package:ttumble/views/widgets/modals/register_modal.dart';
 import 'package:ttumble/views/widgets/splash_chat.dart';
 import 'package:ttumble/views/widgets/splash_ticket.dart';
 
+import 'futuretest.dart';
 import 'views/chat/chat_page.dart';
 import 'views/screens/cards_page.dart';
 import 'views/screens/home_page.dart';
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'inter',
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: /* LoginPage */ /* MyPruebaa */ MainPage /* MyAppp */ /* LoginPage */ (),
+      home: /* MainPage */ PruebaFuture(),
     );
   }
 }

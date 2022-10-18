@@ -10,21 +10,21 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ttumble/main.dart';
 import 'package:ttumble/views/chat/allchat.dart';
+import 'package:ttumble/views/chat/allchat2.dart';
 import 'package:ttumble/views/chat/chat_page.dart';
 import 'package:ttumble/views/screens/auth/login_page.dart';
 import 'package:ttumble/views/screens/home_page.dart';
 import 'package:ttumble/views/screens/location_page.dart';
 import 'package:ttumble/views/utils/AppColor.dart';
 import 'package:ttumble/views/utils/variables.dart';
-import 'package:ttumble/views/widgets/splash_chat2.dart';
 
 import '../screens/location.dart';
 
-class SplashChat extends StatefulWidget {
-  const SplashChat({Key? key}) : super(key: key);
+class SplashChat2 extends StatefulWidget {
+  const SplashChat2({Key? key}) : super(key: key);
 
   @override
-  State<SplashChat> createState() => _SplashChatState();
+  State<SplashChat2> createState() => _SplashChatState2();
 }
 
 /* late String finalEmail;
@@ -43,17 +43,17 @@ late String finalToken;
 late String finalNivel;
 late String finalId;
 
-class _SplashChatState extends State<SplashChat> {
+class _SplashChatState2 extends State<SplashChat2> {
   @override
   void initState() {
-    //textt = [];
 /*     chatNivel = [];
  */
+    //textt = [];
     getValidationData().whenComplete(() async {
       Timer(
           // ignore: unnecessary_null_comparison
           Duration(milliseconds: 2500),
-          () => Get.to(obtainedEmail == null ? LoginPage() : SplashChat2()));
+          () => Get.to(obtainedNivel == 'Cliente' ? Allchat() : Allchat2()));
     });
     super.initState();
     //navigate();
@@ -71,7 +71,7 @@ class _SplashChatState extends State<SplashChat> {
     obtainedNivel = sharedPreferences.getString('usu_nivel');
     obtainedId = sharedPreferences.getString('usu_id');
 
-    chatId('$obtainedChatId');
+    //chatId('$obtainedChatId'); comentado a las6.42
 
     setState(() {
       finalChatId = obtainedChatId;
@@ -83,7 +83,7 @@ class _SplashChatState extends State<SplashChat> {
       finalId = obtainedId;
     });
     print('email:' + obtainedEmail);
-    print('id guardado' + '$userIdChat');
+    print('id guardado' + obtainedChatId); /* userIdChat */
 
     print(obtainedEmail);
     print(obtainedName);
@@ -91,6 +91,7 @@ class _SplashChatState extends State<SplashChat> {
     print(obtainedToken);
     print(obtainedNivel);
     print(obtainedId);
+    print(obtainedChatId);
   }
 
   @override
@@ -159,6 +160,17 @@ void chatId(String ch_id) async {
 
       print('klkpasaki splash chat');
       textt = [];
+
+      //data.forEach((element) => {print(element['ms_texto'])}); esto imprime todo por separado
+/*       data.forEach((element) => {textt.add(element['ms_texto'])});
+ */
+      /* data.forEach((element) => {
+              Message(
+                  text: (element['ms_texto']),
+                  date: DateTime.now(),
+                  isSentByMe: true)
+            }); //// */
+
       chatNivel = [];
 
       data.forEach((element) => {textt.add(element['ms_texto'])});

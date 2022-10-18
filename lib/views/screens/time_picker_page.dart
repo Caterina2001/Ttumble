@@ -25,6 +25,8 @@ class TimePickerPage extends StatefulWidget {
   _TimePickerPageState createState() => _TimePickerPageState();
 }
 
+String userIdChatt = "";
+
 class _TimePickerPageState extends State<TimePickerPage> {
   void ticket(String userId, service, location, description, date) async {
     try {
@@ -66,12 +68,12 @@ class _TimePickerPageState extends State<TimePickerPage> {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body.toString());
 
-        print(data);
-        print(data[0]['ch_id']);
+        print(await data);
+        print(await data[0]['ch_id']);
         print('vamos a ver el id del chat desde time picker');
-        userIdChat = (data[0]['ch_id']);
-        print('aqui ahora' + userIdChat);
-        print('aqui ahora obtained' + obtainedChatId);
+        userIdChatt = await (data[0]['ch_id']);
+        print('aqui ahora este es el correcto' + userIdChatt);
+        //print('aqui ahora obtained viejo' + obtainedChatId);
         final SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
         sharedPreferences.setString('ch_id', '$userIdChat'.toString());
@@ -106,6 +108,21 @@ class _TimePickerPageState extends State<TimePickerPage> {
     }
   }
 
+  void metodo() {
+    if ('$userIdChatt' != "") {
+      print('estamos en mensaje');
+      message(completeService, '$obtainedId', '$obtainedNivel', userIdChatt);
+      print('terminoooooo mensaje');
+    } else {
+      print('esta vacio');
+    }
+    /* if (userIdChatt != "") {
+      print('estamos en mensaje');
+      message(completeService, '$obtainedId', '$obtainedNivel', '$userIdChatt');
+      print('termin mensaje');
+    } */
+  }
+
   void message(String texto, usu_id, usu_nivel, ch_id) async {
     try {
       Response response = await post(
@@ -121,7 +138,8 @@ class _TimePickerPageState extends State<TimePickerPage> {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body.toString());
 
-        print(data);
+        print(await data);
+        print(await data[0]['ch_id']);
         print('esta en metodo message');
         /*  String text = '$completeService';
         message(text, '$obtainedId', '$obtainedNivel', '$obtainedChatId'); */
@@ -217,11 +235,12 @@ class _TimePickerPageState extends State<TimePickerPage> {
                     dateFull = (userDate + ", " + userHour);
                     ticket('$obtainedId', '$userService', locationFull,
                         userDescription, dateFull);
-                    chat('$obtainedId', '$obtainedName', userService);
-                    final SharedPreferences sharedPreferences =
+
+                    //chat('$obtainedId', '$obtainedName', userService); esto si crea los chat pero despues de los mensajes
+                    /* final SharedPreferences sharedPreferences =
                         await SharedPreferences.getInstance();
                     sharedPreferences.setString(
-                        'ch_id', '$userIdChat'.toString());
+                        'ch_id', '$userIdChat'.toString()); esto ya esta en el metodo chat*/
 
                     //SplashChat();
 
@@ -241,10 +260,24 @@ class _TimePickerPageState extends State<TimePickerPage> {
 
                         } */
                     print('veamos el valor del user id chat' +
-                        userIdChat +
+                        '$userIdChat' +
                         'ecco');
-                    message(completeService, '$obtainedId', '$obtainedNivel',
-                        '$userIdChat');
+                    print('metodo metodo en chat');
+                    chat('$obtainedId', '$obtainedName', userService);
+                    print('termino chat');
+                    metodo();
+
+                    /* if (userIdChatt.isEmpty) {
+                      chat('$obtainedId', '$obtainedName', userService);
+                      message(completeService, '$obtainedId', '$obtainedNivel',
+                          '$userIdChatt');
+                      Navigator.pop(context);
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => /* ChatPage */ SplashChat(),
+                      ));
+                    } */
+                    /* message(completeService, '$obtainedId', '$obtainedNivel',
+                        '$userIdChatt'); funciona pero se ejecuta antes de chat method */ /* '$userIdChat' */
 
                     /* if (userIdChat.isNotEmpty) {
                       message(completeService, '$obtainedId', '$obtainedNivel',
@@ -253,9 +286,6 @@ class _TimePickerPageState extends State<TimePickerPage> {
                     } else {
                       print('vuoto qui');
                     } */
-
-                    /* message(completeService, '$obtainedId', '$obtainedNivel',
-                        '$userIdChat' /* '$obtainedChatId */); */
 
                     Navigator.pop(context);
                     Navigator.of(context).push(MaterialPageRoute(

@@ -152,6 +152,8 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
 
                 ///
                 String text = messagecontroller.text;
+                chatId(
+                    '$obtainedChatId'); //forse questo non andrebbe ripetuto qui
                 message(
                     text, '$obtainedId', '$obtainedNivel', '$obtainedChatId');
 
@@ -159,7 +161,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
                 ///
 
                 messagecontroller.clear();
-                chatId('$obtainedChatId');
+
                 /* Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => Chat(),
                 )); */

@@ -19,7 +19,6 @@ late var obtainedName;
 late var obtainedEmail;
 late var obtainerNumero;
 late var obtainedToken;
-
 late var obtainedNivel;
 late var obtainedChatId;
 late var obtainedId;
@@ -28,3 +27,4 @@ List listTicket = [];
 List descriptionTicket = [];
 List statusTicket = [];
 List locationTicket = [];
+List chatNivel = [];

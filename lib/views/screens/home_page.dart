@@ -400,7 +400,6 @@ class _HomePageState extends State<HomePage> {
             mainAxisSpacing: 5,
             crossAxisSpacing: 10,
           ),
-          //itemCount: services?.length,
           itemBuilder: (context, index) {
             return Container(
               child: Column(
