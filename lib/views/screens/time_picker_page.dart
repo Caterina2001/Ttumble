@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -54,7 +55,10 @@ class _TimePickerPageState extends State<TimePickerPage> {
   }
 
   /////
-  void chat(String userId, fullname, service) async {
+  /* void chat(String userId, fullname, service) async */ Future<void> chat(
+      String userId, fullname, service) async {
+    debugPrint('first method called');
+    sleep(const Duration(seconds: 3));
     try {
       Response response = await post(
           Uri.parse(
@@ -76,7 +80,11 @@ class _TimePickerPageState extends State<TimePickerPage> {
         //print('aqui ahora obtained viejo' + obtainedChatId);
         final SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
-        sharedPreferences.setString('ch_id', '$userIdChat'.toString());
+        sharedPreferences.setString('ch_id', '$userIdChatt'.toString());
+        print('no se guarda el id' +
+            userIdChatt +
+            'enviana antes' +
+            '$userIdChatt');
       } else {
         print('failed3');
       }
@@ -123,7 +131,22 @@ class _TimePickerPageState extends State<TimePickerPage> {
     } */
   }
 
+  Future<void> metodo1() async {
+    Duration(seconds: 6);
+    print('metodo metodo en chat');
+    chat('$obtainedId', '$obtainedName', userService);
+    print('termino chat');
+  }
+
+  metodo2() {
+    print('metodo metodo en mess');
+    message(completeService, '$obtainedId', '$obtainedNivel', userIdChatt);
+    print('termino metodo en mess');
+  }
+
   void message(String texto, usu_id, usu_nivel, ch_id) async {
+    debugPrint('second method called');
+    sleep(const Duration(seconds: 3));
     try {
       Response response = await post(
           Uri.parse(
@@ -141,11 +164,11 @@ class _TimePickerPageState extends State<TimePickerPage> {
         print(await data);
         print(await data[0]['ch_id']);
         print('esta en metodo message');
-        /*  String text = '$completeService';
-        message(text, '$obtainedId', '$obtainedNivel', '$obtainedChatId'); */
-        final SharedPreferences sharedPreferences =
+
+        /* final SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
-        sharedPreferences.setString('ch_id', '$userIdChat'.toString());
+        sharedPreferences.setString('ch_id', '$userIdChat'.toString());  coemtado a las 1.45 p.m. 18 de oct*/
+        print('esta en metodo message 2');
       } else {
         print('failed1');
       }
@@ -262,10 +285,13 @@ class _TimePickerPageState extends State<TimePickerPage> {
                     print('veamos el valor del user id chat' +
                         '$userIdChat' +
                         'ecco');
-                    print('metodo metodo en chat');
+                    await chat('$obtainedId', '$obtainedName', userService)
+                        .then((value) => message(completeService, '$obtainedId',
+                            '$obtainedNivel', userIdChatt));
+                    /* print('metodo metodo en chat');
                     chat('$obtainedId', '$obtainedName', userService);
-                    print('termino chat');
-                    metodo();
+                    print('termino chat'); */
+                    //metodo();
 
                     /* if (userIdChatt.isEmpty) {
                       chat('$obtainedId', '$obtainedName', userService);

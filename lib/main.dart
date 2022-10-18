@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'inter',
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: /* MainPage */ PruebaFuture(),
+      home: MainPage /* PruebaFuture */ (),
     );
   }
 }

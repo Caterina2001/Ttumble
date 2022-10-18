@@ -1,4 +1,4 @@
-import 'dart:async';
+/* import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -107,8 +107,8 @@ class SplashStatee extends State<PruebaFuture> {
       ),
     ));
   }
-}
-/* import 'dart:async';
+} */
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -126,10 +126,6 @@ import 'package:ttumble/views/screens/location_page.dart';
 import 'package:ttumble/views/screens/cards_page_admin.dart';
 import 'package:ttumble/views/utils/AppColor.dart';
 import 'package:ttumble/views/utils/variables.dart';
-
-
-
-
 
 void main() => runApp(const PruebaFuture());
 
@@ -153,21 +149,14 @@ class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({key});
 
   @override
-
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-
   final Future<String> _calculation = Future<String>.delayed(
-    
     const Duration(seconds: 2),
     () => kk.toString(),
-    
-    
-  )
-  ;
-  
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -243,4 +232,3 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 }
- */
