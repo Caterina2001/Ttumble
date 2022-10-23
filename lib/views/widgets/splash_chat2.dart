@@ -49,11 +49,13 @@ class _SplashChatState2 extends State<SplashChat2> {
 /*     chatNivel = [];
  */
     //textt = [];
+    serviceChat = [];
     getValidationData().whenComplete(() async {
       Timer(
           // ignore: unnecessary_null_comparison
           Duration(milliseconds: 2500),
-          () => Get.to(obtainedNivel == 'Cliente' ? Allchat() : Allchat2()));
+          () =>
+              Get.to(obtainedNivel == 'Cliente' ? Allchat() : AllchatAdmin()));
     });
     super.initState();
     //navigate();
@@ -63,7 +65,8 @@ class _SplashChatState2 extends State<SplashChat2> {
   Future getValidationData() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
-    obtainedChatId = sharedPreferences.getString('ch_id');
+/*     obtainedChatId = sharedPreferences.getString('ch_id');
+ */
     obtainedEmail = sharedPreferences.getString('usu_correo');
     obtainedName = sharedPreferences.getString('usu_nombre');
     obtainerNumero = sharedPreferences.getString('usu_numero');
@@ -71,10 +74,13 @@ class _SplashChatState2 extends State<SplashChat2> {
     obtainedNivel = sharedPreferences.getString('usu_nivel');
     obtainedId = sharedPreferences.getString('usu_id');
 
-    //chatId('$obtainedChatId'); comentado a las6.42
+    chUser(obtainedId);
+
+    //chatId('$obtainedChatId'); /*  comentado a las6.42 */
 
     setState(() {
-      finalChatId = obtainedChatId;
+/*       finalChatId = obtainedChatId;
+ */
       finalEmail = obtainedEmail;
       finalName = obtainedName;
       finalNumero = obtainerNumero;
@@ -83,15 +89,16 @@ class _SplashChatState2 extends State<SplashChat2> {
       finalId = obtainedId;
     });
     print('email:' + obtainedEmail);
-    print('id guardado' + obtainedChatId); /* userIdChat */
-
+/*     print('id guardado' + obtainedChatId); /* userIdChat */
+ */
     print(obtainedEmail);
     print(obtainedName);
     print(obtainerNumero);
     print(obtainedToken);
     print(obtainedNivel);
     print(obtainedId);
-    print(obtainedChatId);
+/*     print(obtainedChatId);
+ */
   }
 
   @override
@@ -139,6 +146,38 @@ class _SplashChatState2 extends State<SplashChat2> {
         ],
       ),
     );
+  }
+}
+
+void chUser(String userId) async {
+  //listTicket = List.empty();
+  try {
+    Response response = await post(
+        Uri.parse(
+            'http://tumble.growmediard.com/controller/chatController.php?op=Get-chat-user'),
+        body: {'userId': userId});
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body.toString());
+      print(data);
+      print('aa');
+
+      data.forEach(
+          (elementt) => {serviceChat.add(elementt['ch_service_name'])});
+      data.forEach((elementt) => {idChat.add(elementt['ch_id'])});
+
+      print('eeeEEEE');
+      print(serviceChat);
+      print(listTicket);
+      print('b');
+
+      print(data[0]['usu_id']); //
+
+    } else {
+      print('failed');
+    }
+  } catch (e) {
+    print(e.toString());
   }
 }
 

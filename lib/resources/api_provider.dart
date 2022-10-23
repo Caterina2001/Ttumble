@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+import 'package:ttumble/models/chat_model.dart';
+import 'package:ttumble/models/ticket_model.dart';
 
+import '../models/chatu_model.dart';
 import '../models/service_model.dart';
 import '../models/special_model.dart';
 
@@ -55,6 +58,57 @@ class ApiProvider1 {
     if (response.statusCode == 200) {
       //var json = response.body;
       return SpecialServiceModel.fromJson(response.data);
+    } else {
+      throw Exception('error to load');
+    }
+  }
+}
+
+class ApiProvider2 {
+  final Dio dio = Dio();
+  //var client = http.Client();
+
+  String _uri =
+      ('http://tumble.growmediard.com/controller/ticketController.php?op=GetAll');
+  Future<TicektModel> fetchCovidList2() async {
+    Response response = await dio.get(_uri);
+    if (response.statusCode == 200) {
+      //var json = response.body;
+      return TicektModel.fromJson(response.data);
+    } else {
+      throw Exception('error to load');
+    }
+  }
+}
+
+class ApiProvider3 {
+  final Dio dio = Dio();
+  //var client = http.Client();
+
+  String _uri =
+      ('http://tumble.growmediard.com/controller/chatController.php?op=GetAll');
+  Future<ChatModel> fetchCovidList3() async {
+    Response response = await dio.get(_uri);
+    if (response.statusCode == 200) {
+      //var json = response.body;
+      return ChatModel.fromJson(response.data);
+    } else {
+      throw Exception('error to load');
+    }
+  }
+}
+
+class ApiProvider4 {
+  final Dio dio = Dio();
+  //var client = http.Client();
+
+  String _uri =
+      ('http://tumble.growmediard.com/controller/chatController.php?op=Get-chat-user');
+  Future<ChatUModel> fetchCovidList4(String userId) async {
+    Response response = await dio.post(_uri);
+    if (response.statusCode == 200) {
+      //var json = response.body;
+      return ChatUModel.fromJson(response.data);
     } else {
       throw Exception('error to load');
     }

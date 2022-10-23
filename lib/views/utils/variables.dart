@@ -14,6 +14,9 @@ String dateFull = "";
 String completeService = "";
 String userIdChat = "";
 String userNumero = "";
+String idTicketUnico = "";
+String idChatUnico = "";
+
 List textt = [];
 late var obtainedName;
 late var obtainedEmail;
@@ -27,4 +30,7 @@ List listTicket = [];
 List descriptionTicket = [];
 List statusTicket = [];
 List locationTicket = [];
+List idTicket = [];
 List chatNivel = [];
+List serviceChat = [];
+List idChat = [];

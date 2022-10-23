@@ -127,47 +127,91 @@ Widget _createFloating() {
                 children: List.generate(
                   textt.length,
                   (index) {
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: Container(
-                          constraints: const BoxConstraints(
-                              minHeight: 30, minWidth: 100),
-                          child: Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            semanticContainer: true,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10),
-                                    bottomLeft: Radius.circular(10))),
-                            elevation: 0,
-                            color: AppColor.primary,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(5),
-                                ),
-                                Text(
-                                  textt[index].toString(),
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
+                    if (chatNivel[index].toString() == 'Cliente') {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 10.0),
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: Container(
+                            constraints: const BoxConstraints(
+                                minHeight: 30, minWidth: 100),
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              semanticContainer: true,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10))),
+                              elevation: 0,
+                              color: AppColor.primary,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(5),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(
-                                    5,
+                                  Text(
+                                    textt[index].toString(),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(
+                                      5,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    );
+                      );
+                    } else {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 10.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                            constraints: const BoxConstraints(
+                                minHeight: 30, minWidth: 100),
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              semanticContainer: true,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10))),
+                              elevation: 0,
+                              color: AppColor.primary,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(5),
+                                  ),
+                                  Text(
+                                    textt[index].toString(),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(
+                                      5,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
                   },
                 ),
               ),

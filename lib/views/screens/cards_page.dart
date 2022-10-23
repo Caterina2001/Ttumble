@@ -1,5 +1,6 @@
 import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
+import 'package:ttumble/main.dart';
 import 'package:ttumble/views/utils/variables.dart';
 import '../utils/AppColor.dart';
 
@@ -26,6 +27,20 @@ class CardsPage extends StatelessWidget {
               Navigator.of(context).pop();
             },
           ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.home,
+                color: Colors.white,
+                size: 30,
+              ),
+              onPressed: () async {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => MainPage(),
+                ));
+              },
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Container(

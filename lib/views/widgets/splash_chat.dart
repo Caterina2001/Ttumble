@@ -64,7 +64,8 @@ class _SplashChatState extends State<SplashChat> {
   Future getValidationData() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
-    userIdChatt = sharedPreferences.getString('ch_id')!;
+/*     /* userIdChatt */ obtainedChatId = sharedPreferences.getString('ch_id');
+ */
     obtainedEmail = sharedPreferences.getString('usu_correo');
     obtainedName = sharedPreferences.getString('usu_nombre');
     obtainerNumero = sharedPreferences.getString('usu_numero');
@@ -72,10 +73,11 @@ class _SplashChatState extends State<SplashChat> {
     obtainedNivel = sharedPreferences.getString('usu_nivel');
     obtainedId = sharedPreferences.getString('usu_id');
 
-    chatId(/* '$obtainedChatId' */ '$userIdChatt');
+    //chatId(/* '$obtainedChatId' */ '$userIdChatt');
 
     setState(() {
-      finalChatId = /* obtainedChatId */ userIdChatt;
+/*       finalChatId = obtainedChatId /* userIdChatt */;
+ */
       finalEmail = obtainedEmail;
       finalName = obtainedName;
       finalNumero = obtainerNumero;
@@ -84,8 +86,9 @@ class _SplashChatState extends State<SplashChat> {
       finalId = obtainedId;
     });
     print('email:' + obtainedEmail);
-    print('id guardado' + /* '$userIdChat' */ /* obtainedChatId */ userIdChatt);
-
+/*     print('id guardado' + /* '$userIdChat' */ /* obtainedChatId */ userIdChatt);
+/*  */    print('id guardado' + obtainedChatId);
+ */
     print(obtainedEmail);
     print(obtainedName);
     print(obtainerNumero);
